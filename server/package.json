@@ -1,0 +1,9 @@
+{
+  "name": "google-maps-javascript-example",
+  "version": "0.0.1",
+  "description": "Base code for arrteepee",
+  "dependencies": {
+  	"express": "*"
+   },
+  "engine": "node 0.6.x"
+}
