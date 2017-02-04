@@ -1,0 +1,23 @@
+<div class='row top-panel'>
+</div>
+<div class='row bottom-panel'>
+  <div class="list card">
+    <a href="#" class="item" ng-repeat="trip in previousTrips">
+      <div class="row">
+        <h1 class="text-white">{{trip.name}}</h1> <br>
+      </div>
+      <div class="row">
+        <div class="col-50">
+          Distance
+          <br>
+          {{trip.distance}}
+        </div>
+        <div class="col-50">
+        Created On
+        <br>
+        {{trip.createdOn}}
+        </div>
+      </div>
+    </a>
+  </div>
+</div>

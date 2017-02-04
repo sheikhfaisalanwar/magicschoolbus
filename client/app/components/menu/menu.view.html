@@ -1,0 +1,40 @@
+<ion-side-menus enable-menu-with-back-views="false">
+  <ion-side-menu-content>
+    <ion-nav-bar class="bar-dark">
+      <ion-nav-back-button>
+      </ion-nav-back-button>
+
+      <ion-nav-buttons side="left">
+        <button class="button button-icon button-dark ion-navicon-round" menu-toggle="left">
+        </button>
+      </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-nav-view name="menuContent"></ion-nav-view>
+    <nav mfb-menu
+      position="br"
+      effect="zoomin"
+      label="Create New Trip"
+      active-icon="ion-edit"
+      resting-icon="ion-plus-round"
+      toggling-method="click"
+      ng-click="menuCtrl.createNewTip()">
+    </nav>
+  </ion-side-menu-content>
+  <ion-side-menu side="left">
+    <rtp-criteria-panel></rtp-criteria-panel>
+    <ion-content>
+      <ion-list>
+        {{menuCtrl.ok}}
+        <ion-item menu-close ng-repeat="menuItem in menuCtrl.menuItems" ui-sref="{{menuItem.toState}}">
+          <span>{{menuItem.label}}</span>
+        </ion-item>
+        <!-- <ion-item menu-close ng-click="login()">
+          Farrar
+        </ion-item>
+        <ion-item menu-close href="#/app/search">
+          Innovation
+        </ion-item> -->
+      </ion-list>
+    </ion-content>
+  </ion-side-menu>
+</ion-side-menus>

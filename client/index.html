@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title></title>
+    <!-- vendor.css  -->
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link rel="stylesheet" href="lib/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="lib/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="lib/Leaflet.label/dist/leaflet.label.css" />
+    <link rel="stylesheet" href="lib/ng-material-floating-button/mfb/dist/mfb.css"/>
+
+    <!-- app.css -->
+    <link href="app/app.css" rel="stylesheet">
+    <link href="app/shared/directives/rtp-criteria-panel/rtp-criteria-panel.css" rel="stylesheet">
+    <link href="app/components/menu/menu.css" rel="stylesheet">
+  </head>
+
+  <body ng-app="app" class="platform-ios platform-cordova platform-webview">
+    <ion-nav-view></ion-nav-view>
+
+    <!-- vendor.js -->
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+    <script src="lib/lodash/dist/lodash.min.js"></script>
+    <script src="lib/leaflet/dist/leaflet.js"></script>
+    <script src="lib/Leaflet.label/dist/leaflet.label.js"></script>
+    <script src="lib/leaflet.zoomcss.js"></script>
+    <script src="lib/angular-leaflet-directive/dist/angular-leaflet-directive.min.js"></script>
+    <script src="lib/ng-cordova.min.js"></script>
+    <script src="lib/ng-material-floating-button/src/mfb-directive.js"></script>
+
+    <!-- app.js -->
+    <script src="app/app.run.js"></script>
+    <script src="app/app.stateProvider.js"></script>
+    <script src="app/shared/directives/rtp-criteria-panel/rtp-criteria-panel.directive.js"></script>
+    <script src="app/components/menu/menu.controller.js"></script>
+    <script src="app/components/map/map.controller.js"></script>
+    <script src="app/components/map/map.stateProvider.js"></script>
+  </body>
+</html>

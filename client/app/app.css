@@ -1,0 +1,53 @@
+body {
+  height: auto;
+  min-height: 200%;
+}
+
+.scroll, .angular-leaflet-map {
+  height: 100%;
+}
+
+.text-labels {
+  text-align: center;
+  font-weight: 700;
+  /* Use color, background, set margins for offset, etc */
+}
+
+.text-white {
+  color: #fff;
+}
+
+.z3 .path-text-overlay {
+  font-size: 24px;
+}
+.z2 .path-text-overlay {
+  font-size: 16px;
+}
+.z1 .path-text-overlay {
+  font-size: 8px;
+}
+
+.z0 .path-text-overlay {
+  /*font-size: 4px;*/
+  display: none;
+
+}
+
+.text-center {
+  text-align: center !important;
+}
+
+.text-bold {
+  font-weight: bold;
+}
+
+@media (min-width: 767px) {
+  .menu-content {
+    -webkit-transform: translate3d(270px, 0px, 0px) !important;
+    width: calc(100% - 270px) !important;
+  }
+
+  .bar-header button.ion-navicon-round {
+    display: none;
+  }
+}

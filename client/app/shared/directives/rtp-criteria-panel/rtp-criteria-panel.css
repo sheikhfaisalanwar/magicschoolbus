@@ -1,0 +1,21 @@
+rtp-criteria-panel > div {
+    background-color: #333;
+}
+
+rtp-criteria-panel div.top-panel {
+  height: 30%;
+}
+
+rtp-criteria-panel div.bottom-panel {
+  height: 70%;
+}
+
+rtp-criteria-panel div.card.list {
+    background-color: #555;
+    width: 100%;
+}
+
+rtp-criteria-panel div.card.list > a {
+    background-color: #555;
+    color: #fff;
+}

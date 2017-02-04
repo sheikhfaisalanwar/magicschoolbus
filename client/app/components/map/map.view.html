@@ -1,0 +1,10 @@
+<ion-view title="{{mainMapCtrl.title}}">
+  <ion-content data-tap-disabled="true">
+    <leaflet
+      defaults="mainMapCtrl.map.defaults"
+      center="mainMapCtrl.map.center"
+      paths="mainMapCtrl.map.paths"
+      maxBounds="mainMapCtrl.map.maxBounds"
+      ng-if="mainMapCtrl.map"></leaflet>
+  </ion-content>
+</ion-view>
