@@ -4,6 +4,7 @@
     'ionic',
     'leaflet-directive',
     'ng-mfb',
+    'ngAutocomplete',
     'app.directives',
     'app.factories',
     'login',
@@ -21,7 +22,7 @@
       }
       if (window.StatusBar) {
         // org.apache.cordova.statusbar required
-        StatusBar.styleDefault();
+        window.StatusBar.styleDefault();
       }
     });
     $rootScope.$on('$routeChangeStart', function(event, currRoute, prevRoute){

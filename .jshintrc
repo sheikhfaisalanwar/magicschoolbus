@@ -17,5 +17,10 @@
   "unused": false,
   "trailing": true,
   "sub": true,
-  "maxlen": 140
+  "maxlen": 140,
+  "globals": {
+    "angular": true,
+    "window": true,
+    "cordova": true
+  }
 }

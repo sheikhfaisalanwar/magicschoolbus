@@ -56,3 +56,7 @@ body {
 .login-padding {
   padding: 15%;
 }
+
+.pac-container.pac-logo {
+  z-index: 1000000;
+}

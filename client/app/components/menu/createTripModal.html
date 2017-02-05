@@ -1,0 +1,25 @@
+<ion-modal-view>
+  <ion-header-bar class="bar bar-header bar-dark">
+    <h1 class="title">Create New Trip</h1>
+    <button class="button button-clear button-primary" ng-click="closeModal()">Cancel</button>
+  </ion-header-bar>
+  <ion-content class="padding">
+    <div class="list">
+      <label class="item item-input">
+        <span class="input-label">Source</span>
+        <!-- <input type="text" ng-model="tripModal.source" googleplace class="form-control"/> -->
+        <input type="text"  ng-autocomplete ng-model="tripInput.source" options="autoCompleteOpts" />
+        <!-- <input ng-model="newUser.firstName" type="text"> -->
+      </label>
+      <label class="item item-input">
+        <span class="input-label">Destination</span>
+        <input type="text"  ng-autocomplete ng-model="tripInput.dest" options="autoCompleteOpts"/>
+      </label>
+      <label class="item item-input">
+        <span class="input-label">Range (km)</span>
+        <input type="number" ng-model="tripInput.range" />
+      </label>
+      <button class="button button-full button-dark" ng-click="createTrip(tripInput)">Create Trip</button>
+    </div>
+  </ion-content>
+</ion-modal-view>

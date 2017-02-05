@@ -19,3 +19,8 @@ rtp-criteria-panel div.card.list > a {
     background-color: #555;
     color: #fff;
 }
+
+rtp-criteria-panel div.card.list > a:hover {
+    background-color: #222;
+    color: #fff;
+}

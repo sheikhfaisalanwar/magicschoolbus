@@ -2,10 +2,11 @@
 </div>
 <div class='row bottom-panel'>
   <div class="list card">
-    <a href="#" class="item" ng-repeat="trip in previousTrips">
+    <a class="item" ng-repeat="trip in previousTrips" ng-click="openTrip($index)">
       <div class="row">
-        <h1 class="text-white">{{trip.name}}</h1> <br>
+        <div class="text-white"><b>{{trip.name}}</b></div>
       </div>
+      <br><br>
       <div class="row">
         <div class="col-50">
           Distance

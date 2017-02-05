@@ -1,10 +1,9 @@
 ( function () {
   'use strict';
-  angular.module('app.factories', [])
+  angular.module('app.factories')
     .factory('TripFactory', [ '$q', '$http', 'API_ENDPOINT', function($q, $http, API_ENDPOINT) {
 
-    var deferred = $q.defer(),
-      recentTripList,
+    var recentTripList,
       subListScopes = [],
       subFocusScopes = [],
       TripFactory = {
@@ -12,17 +11,46 @@
        onListChange: onListChange,
        onTripFocusChange: onTripFocusChange,
        notifyTripFocusChange: notifyTripFocusChange,
+       convertAddressToCoordinates: convertAddressToCoordinates,
+       createTripfromParams: createTripfromParams,
        data: {
          }
        };
-    function getAll () {
-      var promise = deferred.promise;
-      return $http.get(API_ENDPOINT + '/Trips').then(function(res){
-        TripFactory.data.trips = JSON.parse(JSON.stringify(res.data));
-        return res.data;
+
+    function convertAddressToCoordinates (address) {
+      var deferred = $q.defer();
+      $http.get(API_ENDPOINT + '/Trips/covertGeocode',{headers: {address: address}})
+      .then(function(res){
+        deferred.resolve(res.data.response);
       },function(err) {
-        console.error(err);
+        deferred.reject(err);
       });
+      return deferred.promise;
+    }
+
+    function createTripfromParams(sourceLatLng, destLatLng, range) {
+      var deferred = $q.defer();
+      $http.post(API_ENDPOINT + '/Trips/populate',{
+        source: sourceLatLng,
+        dest: destLatLng,
+        range: range
+      }).then(function(res){
+        deferred.resolve(res.data);
+      },function(err) {
+        deferred.reject(err);
+      });
+      return deferred.promise;
+    }
+
+    function getAll () {
+      var deferred = $q.defer();
+      $http.get(API_ENDPOINT + '/Trips').then(function(res){
+        TripFactory.data.trips = JSON.parse(JSON.stringify(res.data));
+          deferred.resolve(res.data);
+      },function(err) {
+        deferred.reject(err);
+      });
+      return deferred.promise;
     }
     function notifyListChange() {
       subListScopes.forEach(function (subScope) {

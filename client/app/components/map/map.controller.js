@@ -1,14 +1,14 @@
 ( function () {
   'use strict';
   angular.module('app.mainMap', [])
-  .controller('mainMapController', [ '$scope', '$stateParams', '$ionicModal', '$ionicPopup',
-    function($scope, $stateParams,$ionicModal, $ionicPopup) {
+  .controller('mainMapController', [ '$scope', '$stateParams', '$ionicModal', '$ionicPopup', 'TripFactory',
+    function($scope, $stateParams,$ionicModal, $ionicPopup, TripFactory) {
     var vm = this;
 
     vm.title = '<h1 class="text-white"><i class="ion-android-bus"> Magic School Bus</h1>';
 
 
-    $scope.$on("$stateChangeSuccess", function() {
+    $scope.$on('$stateChangeSuccess', function() {
       vm.map = {
         defaults: {
             tileLayer: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -24,15 +24,26 @@
           },
           markers : {},
           events: {
-           map: {
-           }
           }
       };
 
     });
-
-
-
+    TripFactory.onTripFocusChange($scope, function (event, message) {
+      console.log('vm.map.markers', vm.map.markers);
+      console.log('TripFactory.data.trips', TripFactory.data.trips);
+      vm.map.markers.start = {
+        lat: TripFactory.data.trips[message.index].start.lat,
+        lng: TripFactory.data.trips[message.index].start.lon
+      };
+      vm.map.markers.end = {
+        lat: TripFactory.data.trips[message.index].end.lat,
+        lng: TripFactory.data.trips[message.index].end.lon
+      };
+      TripFactory.data.trips[message.index].pois.forEach(function (poi) {
+        vm.map.markers[poi.name] = poi;
+        vm.map.markers[poi.name].lng = vm.map.markers[poi.name].lon;
+      });
+    });
 
     /**
     * Detect user long-pressing on map to add new location
