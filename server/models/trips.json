@@ -1,0 +1,38 @@
+{
+  "name": "Trips",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "start": {
+      "type": "object",
+      "required": true
+    },
+    "end": {
+      "type": "object",
+      "required": true
+    },
+    "pois": {
+      "type": [
+        "Poi"
+      ],
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {
+    "owner": {
+      "type": "belongsTo",
+      "model": "User",
+      "foreignKey": "userId"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}
