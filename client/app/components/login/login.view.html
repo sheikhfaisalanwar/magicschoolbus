@@ -1,14 +1,22 @@
 <ion-view view-title="Login">
-  <ion-content class="padding">
-      <div class="list list-inset">
+  <ion-content class="login-padding">
+    <div class="text-center">
+        <i class="ion-android-bus" style="font-size: 90px;"></i>
+        <h1>Magic School Bus</h1>
+    </div>
+    <div class="list list-inset">
+        <form ng-submit="login()">
           <label class="item item-input">
-              <input type="text" placeholder="Username" ng-model="data.username">
+              <input type="text" placeholder="Email" ng-model="data.username" required>
           </label>
           <label class="item item-input">
-              <input type="password" placeholder="Password" ng-model="data.password">
+              <input type="password" placeholder="Password" ng-model="data.password" required>
           </label>
-      </div>
-      <button class="button button-block button-dark" ng-click="login()">Login</button>
-      <button class="button button-block button-dark" ng-click="showSignUpModal()">Signup</button>
+          <input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;"/>
+        </form>
+    </div>
+    <br>
+    <button class="button button-block button-dark" ng-click="login()">Login</button>
+    <button class="button button-block button-dark" ng-click="showSignUpModal()">Signup</button>
   </ion-content>
 </ion-view>

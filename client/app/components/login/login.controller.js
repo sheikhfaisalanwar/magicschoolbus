@@ -1,7 +1,8 @@
 ( function () {
   'use strict';
   angular.module('login', [])
-.controller('loginController', ['$scope', 'LoginService', '$ionicPopup', '$state', '$ionicModal', function($scope, LoginService, $ionicPopup, $state, $ionicModal) {
+  .controller('loginController', ['$scope', 'LoginService', '$ionicPopup', '$state', '$ionicModal',
+  function($scope, LoginService, $ionicPopup, $state, $ionicModal) {
     $scope.data = {};
     console.log('ctrl');
 
@@ -14,7 +15,7 @@
                 template: 'Please check your credentials!'
             });
         });
-    }
+    };
 
 
 
@@ -22,7 +23,6 @@
       scope: $scope,
       animation: 'slide-in-up'
     }).then(function(modal) {
-      console.log('Modal set')
       $scope.userModal = modal;
     });
     $scope.showSignUpModal = function() {

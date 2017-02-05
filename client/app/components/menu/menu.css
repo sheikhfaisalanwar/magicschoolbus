@@ -6,3 +6,7 @@ ion-nav-bar button.button-icon.ion-navicon-round {
   margin-top: -10px;
 
 }
+
+.logout-button {
+  margin-top: -20px !important;
+}

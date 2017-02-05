@@ -2,6 +2,7 @@
    'use strict';
   angular.module('app')
   .constant('_', window._)
+  .constant('API_ENDPOINT', 'http://localhost:3000/api')
   .config(function($stateProvider, $urlRouterProvider, $logProvider) {
     $stateProvider
       .state('app', {

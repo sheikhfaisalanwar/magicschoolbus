@@ -51,3 +51,8 @@ body {
     display: none;
   }
 }
+
+
+.login-padding {
+  padding: 15%;
+}

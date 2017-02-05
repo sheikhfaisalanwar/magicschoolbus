@@ -6,14 +6,14 @@
   <ion-content class="padding">
     <div class="list">
       <label class="item item-input">
-        <span class="input-label">Username</span>
-        <input ng-model="data.newusername" type="text">
+        <span class="input-label">Email</span>
+        <input ng-model="data.signUpEmail" type="text">
       </label>
       <label class="item item-input">
         <span class="input-label">Password</span>
-        <input ng-model="data.newpassword" type="text">
+        <input ng-model="data.signUpPw" type="text">
       </label>
-      <button class="button button-full button-dark" ng-click="createNewUser(data.newusername,data.newpassword)">Create Profile</button>
+      <button class="button button-full button-dark" ng-click="createNewUser(data.signUpEmail,data.signUpPw)">Create Profile</button>
     </div>
   </ion-content>
 </ion-modal-view>

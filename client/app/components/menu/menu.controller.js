@@ -1,6 +1,6 @@
 angular.module('app.menu', [])
 
-.controller('menuController', function($scope, $ionicModal, $timeout) {
+.controller('menuController', function($scope, $ionicModal, $timeout, LoginService) {
 
   var vm = this;
   vm.title = 'Farrar';
@@ -17,5 +17,9 @@ angular.module('app.menu', [])
   };
   $scope.closeModal = function() {
     vm.tripModal.hide();
+  };
+
+  $scope.logout = function () {
+    LoginService.logout();
   };
 });

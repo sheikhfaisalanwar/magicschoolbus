@@ -5,11 +5,12 @@
     'leaflet-directive',
     'ng-mfb',
     'app.directives',
+    'app.factories',
     'login',
     'app.mainMap',
     'app.menu'
   ])
-  .run(['$ionicPlatform', '$rootScope',function($ionicPlatform, $rootScope) {
+  .run(['$ionicPlatform', '$rootScope', 'LoginService', '$state', function($ionicPlatform, $rootScope, LoginService, $state) {
     $ionicPlatform.ready(function() {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
       // for form inputs)
@@ -21,6 +22,13 @@
       if (window.StatusBar) {
         // org.apache.cordova.statusbar required
         StatusBar.styleDefault();
+      }
+    });
+    $rootScope.$on('$routeChangeStart', function(event, currRoute, prevRoute){
+      console.log('stateChange');
+      if (!LoginService.userData || !LoginService.userData.accessToken ) {
+        event.preventDefault();
+        $state.go('login');
       }
     });
   }]);
