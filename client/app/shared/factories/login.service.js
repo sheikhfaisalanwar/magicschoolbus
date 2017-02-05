@@ -50,9 +50,11 @@
       logout: function () {
         var promise = deferred.promise;
         console.log('accessLOGOUT: ', userObject.accessToken);
-        $http.post(API_ENDPOINT + '/Users/logout', {}, {
-          'acecss_token': userObject.accessToken
-        }).then(function (successResponse) {
+        var config = {headers:{
+          'Content-Type': 'application/json',
+          'accessToken': userObject.accessToken
+        }};
+        $http.post(API_ENDPOINT + '/Users/logout',config ).then(function (successResponse) {
             $state.go('login');
           },function (errorResponse) {
           deferred.reject(errorResponse);

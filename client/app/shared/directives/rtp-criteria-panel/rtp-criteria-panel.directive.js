@@ -6,6 +6,35 @@
       name: 'Naomi',
       address: '1600 Amphitheatre'
     };
+    $scope.tripName = 'French Toast Adventure';
+    $scope.origin = 'Kingston, ON';
+    $scope.destination = 'Ottawa, ON';
+    $scope.distance = '196 km';
+    $scope.poiList= [
+      {
+        "name" : "Canadian Museum of History",
+        "link" : "http://www.historymuseum.ca/"
+      },
+      {
+        "name" : "1000 Islands",
+        "link" : "http://www.visit1000islands.com/"
+      },
+      {
+        "name" : "Canadian Museum of Civilization",
+        "link" : "http://outaouais.quebecheritageweb.com/attraction/canadian-museum-civilization-gatineau"
+      }];
+     $ionicModal.fromTemplateUrl('app/components/menu/poiModal.html', {
+        scope: $scope,
+        animation: 'slide-in-up'
+      }).then(function(modal) {
+        $scope.PoiModal = modal;
+      });
+      vm.showPoiModal= function() {
+        vm.PoiModal.show();
+      };
+      $scope.closePoiModal = function() {
+        vm.PoiModal.hide();
+      };
   }])
   .directive('rtpCriteriaPanel', ['TripFactory', function(TripFactory) {
     return {

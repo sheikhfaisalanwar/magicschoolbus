@@ -20,6 +20,7 @@
     };
 
     $scope.logout = function () {
+      console.log("Hit logout")
       LoginService.logout();
     };
 
@@ -28,6 +29,8 @@
         TripFactory.convertAddressToCoordinates(tripInput.dest).then(function (destCoords) {
           TripFactory.createTripfromParams(sourceCoords, destCoords, tripInput.range).then(function () {
             console.log('yay!');
+            $scope.closeModal();
+            //Trip.factory
           });
         });
       });

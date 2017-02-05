@@ -3,11 +3,11 @@ rtp-criteria-panel > div {
 }
 
 rtp-criteria-panel div.top-panel {
-  height: 30%;
+  height: 70%;
 }
 
 rtp-criteria-panel div.bottom-panel {
-  height: 67%;
+  height: 30%;
 }
 
 rtp-criteria-panel div.card.list {
