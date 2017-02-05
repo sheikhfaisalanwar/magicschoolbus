@@ -26,8 +26,10 @@
     $scope.createTrip = function (tripInput) {
       TripFactory.convertAddressToCoordinates(tripInput.source).then(function (sourceCoords) {
         TripFactory.convertAddressToCoordinates(tripInput.dest).then(function (destCoords) {
-          TripFactory.createTripfromParams(sourceCoords, destCoords, tripInput.range).then(function () {
-            console.log('yay!');
+          TripFactory.createTripfromParams(sourceCoords, destCoords, tripInput.range).then(function (success) {
+            $scope.closeModal();
+            TripFactory.getAll();
+
           });
         });
       });

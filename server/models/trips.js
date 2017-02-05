@@ -30,9 +30,10 @@ module.exports = function(Trips) {
     }, function (err, res) {
       var runningTally = 0;
       var latLngPairs = [requestBody.source];
+      // cb(null, res.json.routes[0].legs[0]);
       _.forEach(res.json.routes[0].legs[0].steps, function (step) {
         runningTally+= step.distance.value;
-        if (runningTally > requestBody.range) {
+        if (runningTally > requestBody.range/2) {
           latLngPairs.push(step['end_location']);
           runningTally = 0;
         }
@@ -49,7 +50,6 @@ module.exports = function(Trips) {
           _.forEach(nearbyRes.json.results, function (poi) {
             Trips.app.models.Poi.find({where:{'place_id': poi['place_id']}}, function (error1, findResult) {
               if (error1) { return cb(new Error('POI Find Failed', err)); }
-              console.log('fiind', findResult.length);
               if (findResult.length > 0) {
                 tripPoiList.push(findResult[0]);
               }
@@ -62,8 +62,6 @@ module.exports = function(Trips) {
                 };
                 console.log('Trips.app.models.Poi', Trips.app.models.Poi);
                 Trips.app.models.Poi.create(poiNew, function (error2, poiNewAck) {
-                  console.log('error', error2);
-                  console.log('poiNewAck', poiNewAck);
                   if (error2) { return cb(new Error('POI Crate Failed')); }
                   tripPoiList.push(poiNewAck);
                 });
@@ -72,12 +70,13 @@ module.exports = function(Trips) {
           });
         });
       });
+      console.log('distance', res.json.routes[0].legs[0].distance);
       setTimeout(function () {
         var newTrip = {
           name: 'Trip ' + Math.floor((Math.random() * 100) + 1),
           start: requestBody.source,
           end: requestBody.dest,
-          distance: res.json.routes[0].legs[0].distance.text ,
+          distance: res.json.routes[0].legs[0].distance.value ,
           pois: JSON.parse(JSON.stringify(tripPoiList)),
           userId: Trips.app.currentUserId
         };

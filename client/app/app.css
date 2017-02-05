@@ -41,6 +41,11 @@ body {
   font-weight: bold;
 }
 
+.section-text {
+  font-size: 160% !important;
+}
+
+
 @media (min-width: 767px) {
   .menu-content {
     -webkit-transform: translate3d(270px, 0px, 0px) !important;
@@ -59,4 +64,9 @@ body {
 
 .pac-container.pac-logo {
   z-index: 1000000;
+}
+
+
+ion-header-bar .title.title-center.header-item {
+  font-size: 200%;
 }

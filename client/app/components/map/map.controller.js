@@ -5,14 +5,14 @@
     function($scope, $stateParams,$ionicModal, $ionicPopup, TripFactory) {
     var vm = this;
 
-    vm.title = '<h1 class="text-white"><i class="ion-android-bus"> Magic School Bus</h1>';
+    vm.title = 'Magic School Bus';
 
 
     $scope.$on('$stateChangeSuccess', function() {
       vm.map = {
         defaults: {
-            tileLayer: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+            // tileLayer: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+            // attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
             maxZoom: 19,
             zoomControlPosition: 'bottomleft',
             scrollWheelZoom: true
@@ -24,11 +24,30 @@
           },
           markers : {},
           events: {
+          },
+          layers: {
+            baselayers: {
+              osm: {
+                name: 'OpenStreetMap',
+                url: 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                type: 'xyz'
+              },
+              cloudmade: {
+                name: 'Cloudmade Tourist',
+                type: 'xyz',
+                url: 'http://{s}.tile.cloudmade.com/{key}/{styleId}/256/{z}/{x}/{y}.png',
+                layerParams: {
+                  key: '007b9471b4c74da4a6ec7ff43552b16f',
+                  styleId: 7
+                }
+              }
+            }
           }
       };
 
     });
     TripFactory.onTripFocusChange($scope, function (event, message) {
+      vm.map.markers = {};
       console.log('vm.map.markers', vm.map.markers);
       console.log('TripFactory.data.trips', TripFactory.data.trips);
       vm.map.markers.start = {
@@ -41,7 +60,8 @@
       };
       TripFactory.data.trips[message.index].pois.forEach(function (poi) {
         vm.map.markers[poi.name] = poi;
-        vm.map.markers[poi.name].lng = vm.map.markers[poi.name].lon;
+        vm.map.markers[poi.name].lng = vm.map.markers[poi.name].location.lng;
+        vm.map.markers[poi.name].lat = vm.map.markers[poi.name].location.lat;
       });
     });
 

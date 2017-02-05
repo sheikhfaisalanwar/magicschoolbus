@@ -3,11 +3,11 @@ rtp-criteria-panel > div {
 }
 
 rtp-criteria-panel div.top-panel {
-  height: 30%;
+  height: 50%;
 }
 
 rtp-criteria-panel div.bottom-panel {
-  height: 67%;
+  height: 48%;
 }
 
 rtp-criteria-panel div.card.list {
@@ -18,9 +18,16 @@ rtp-criteria-panel div.card.list {
 rtp-criteria-panel div.card.list > a {
     background-color: #555;
     color: #fff;
+    overflow-y: hidden;
 }
 
 rtp-criteria-panel div.card.list > a:hover {
     background-color: #222;
     color: #fff;
+}
+
+rtp-criteria-panel ion-scroll {
+  width: 100%;
+  overflow-y: hidden;
+  background-color: #444;
 }
