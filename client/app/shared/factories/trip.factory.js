@@ -19,7 +19,7 @@
 
     function convertAddressToCoordinates (address) {
       var deferred = $q.defer();
-      $http.get(API_ENDPOINT + '/Trips/covertGeocode',{headers: {address: address}})
+      $http.get(API_ENDPOINT + '/Trips/convertGeocode',{headers: {address: address}})
       .then(function(res){
         deferred.resolve(res.data.response);
       },function(err) {

@@ -11,8 +11,10 @@
       "type": "string",
       "required": true
     },
-    "type": {
-      "type": "string",
+    "types": {
+      "type": [
+        "string"
+      ],
       "required": true
     },
     "location": {
