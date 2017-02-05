@@ -5,8 +5,9 @@
     'leaflet-directive',
     'ng-mfb',
     'app.directives',
+    'login',
     'app.mainMap',
-    'app.menu',
+    'app.menu'
   ])
   .run(['$ionicPlatform', '$rootScope',function($ionicPlatform, $rootScope) {
     $ionicPlatform.ready(function() {

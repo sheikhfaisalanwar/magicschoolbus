@@ -12,10 +12,10 @@ angular.module('app.menu', [])
   }).then(function(modal) {
     vm.tripModal = modal;
   });
-  vm.createNewTip = function() {
+  vm.createNewTrip = function() {
     vm.tripModal.show();
   };
-  vm.closeModal = function() {
+  $scope.closeModal = function() {
     vm.tripModal.hide();
   };
 });
