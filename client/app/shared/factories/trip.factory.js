@@ -12,7 +12,8 @@
        onTripFocusChange: onTripFocusChange,
        notifyTripFocusChange: notifyTripFocusChange,
        convertAddressToCoordinates: convertAddressToCoordinates,
-       createTripfromParams: createTripfromParams,
+       createOne: createOne,
+       deleteOne: deleteOne,
        data: {
          }
        };
@@ -28,16 +29,32 @@
       return deferred.promise;
     }
 
-    function createTripfromParams(sourceLatLng, destLatLng, range) {
+    function createOne(name, sourceLatLng, destLatLng, range) {
       var deferred = $q.defer();
       $http.post(API_ENDPOINT + '/Trips/populate',{
+        name: name,
         source: sourceLatLng,
         dest: destLatLng,
         range: range
       }).then(function(res){
         console.log(res);
-        deferred.resolve(res.data);
-        TripFactory.data.currenttrip = JSON.parse(JSON.stringify(res.data));
+        getAll().then(function() {
+          deferred.resolve(true);
+        });
+      },function(err) {
+        deferred.reject(err);
+      });
+      return deferred.promise;
+    }
+
+    function deleteOne(tripId) {
+      var deferred = $q.defer();
+      $http.delete(API_ENDPOINT + '/Trips/' + tripId)
+        .then(function(res){
+        console.log(res);
+        getAll().then(function() {
+          deferred.resolve(true);
+        });
       },function(err) {
         deferred.reject(err);
       });
@@ -47,33 +64,15 @@
     function getAll () {
       var deferred = $q.defer();
       $http.get(API_ENDPOINT + '/Trips').then(function(res){
-        TripFactory.data.newTrip = JSON.parse(JSON.stringify(res.data));
-          deferred.resolve(res.data);
+        TripFactory.data.trips = JSON.parse(JSON.stringify(res.data));
+        console.log('getAll',TripFactory.data.trips);
+        notifyListChange();
+        deferred.resolve(res.data);
       },function(err) {
         deferred.reject(err);
       });
       return deferred.promise;
     }
-
-    // function storeCurrent (trip) {
-    //   var deferred = $q.defer();
-    //   $http.post(API_ENDPOINT + '/Trips',
-    //   {
-    //     "name" : trip.name,
-    //     "start" : trip.source,
-    //     "end" : trip.end,
-    //     "distance" : "",
-    //     "pois" : "[]"
-    //
-    //   }).then(function(res){
-    //     TripFactory.data.trips = JSON.parse(JSON.stringify(res.data));
-    //       deferred.resolve(res.data);
-    //   },function(err) {
-    //     deferred.reject(err);
-    //   });
-    //   return deferred.promise;
-    // }
-
 
     function notifyListChange() {
       subListScopes.forEach(function (subScope) {

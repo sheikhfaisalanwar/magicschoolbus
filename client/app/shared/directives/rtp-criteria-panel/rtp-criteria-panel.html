@@ -1,55 +1,20 @@
-
 <div class='row top-panel'>
-  <div class="list card">
-    <a class="item" >
+  <ion-content direction="y" class="list card trip-list">
+    <a class="item" ng-repeat="poi in TripPois" ng-click="openPoi($index)">
       <div class="row">
-        <div class="text-white"><b>French Tost Adventure</b></div>
-      </div>
-      <br><br>
-      <div class="row">
-        <div class="col-50">
-          Origin
-          <br>
-          <br>
-          Canadian Museum of History
-        </div>
-        <div class="col-50">
-          Destination
-          <br>
-          <br>
-          1000 Islands
-        </div>
-        <div class="col-50">
-          Distance
-          <br>
-          <br>
-          Canadian Museum of History
-        </div>
-        <div class="col-50">
-        <ion-list>
-          Points of interest
-          <ion-item  ng-click="openPoi()">
-            Canadian Museum of History
-          </ion-item>
-          <ion-item  ng-click="openPoi()">
-            1000 Islands
-          </ion-item>
-          <ion-item  ng-click="openPoi()">
-            Canadian Museum of Civilization
-          </ion-item>
-        </ion-list>
+        <div><b>{{poi.name}}</b></div>
       </div>
     </a>
-  </div>
-  </div>
+  </ion-content>
 </div>
 <div class='row bottom-panel'>
-  <div class="list card">
-    <a class="item" ng-repeat="trip in previousTrips" ng-click="openTrip($index)">
+  <ion-content direction="y" class="list card trip-list">
+    <a class="item item-dark" ng-repeat="trip in tripList" ng-click="selectTrip($index)">
       <div class="row">
-        <div class="text-white"><b>{{trip.name}}</b></div>
+        <h2 class="text-white section-text"><b>{{trip.name}}</b></h2>
+        <span class="trip-delete-icon ion-trash-b" ng-click="deleteTrip($index)"></span>
       </div>
-      <br><br>
+      <br>
       <div class="row">
         <div class="col-50">
           Distance
@@ -63,6 +28,5 @@
         </div>
       </div>
     </a>
-  </div>
-
+  </ion-content>
 </div>

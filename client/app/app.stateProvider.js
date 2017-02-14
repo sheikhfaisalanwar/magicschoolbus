@@ -6,7 +6,7 @@
   .config(function($stateProvider, $urlRouterProvider, $logProvider) {
     $stateProvider
       .state('app', {
-      url: '/app',
+      url: '/',
       abstract: true,
       templateUrl: 'app/components/menu/menu.view.html',
       controller: 'menuController',
@@ -14,6 +14,6 @@
     });
     $logProvider.debugEnabled(false);
     // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise('/app/login');
+    $urlRouterProvider.otherwise('/login');
   });
 })();

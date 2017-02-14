@@ -4,7 +4,7 @@
   .config(function($stateProvider) {
     console.log('ss');
     $stateProvider.state('login', {
-      url: '/app/login',
+      url: '/login',
       templateUrl: 'app/components/login/login.view.html',
       controller: 'loginController'
     });

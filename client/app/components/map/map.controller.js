@@ -5,7 +5,7 @@
     function($scope, $stateParams,$ionicModal, $ionicPopup, TripFactory) {
     var vm = this;
 
-    vm.title = '<h1 class="text-white"><i class="ion-android-bus"> Magic School Bus</h1>';
+    vm.title = 'Magic School Bus';
 
 
     $scope.$on('$stateChangeSuccess', function() {
@@ -28,20 +28,25 @@
       };
 
     });
-    TripFactory.onTripFocusChange($scope, function (event, message) {
-      console.log('vm.map.markers', vm.map.markers);
-      console.log('TripFactory.data.trips', TripFactory.data.trips);
+    TripFactory.onListChange($scope, function() {
+      vm.map.markers = {};
+    });
+    TripFactory.onTripFocusChange($scope, function (event, focusedTrip) {
+      vm.map.markers = {};
+      var selectedTrip = TripFactory.data.trips[focusedTrip.index];
       vm.map.markers.start = {
-        lat: TripFactory.data.trips[message.index].start.lat,
-        lng: TripFactory.data.trips[message.index].start.lon
+        lat: selectedTrip.start.lat,
+        lng: selectedTrip.start.lng
       };
       vm.map.markers.end = {
-        lat: TripFactory.data.trips[message.index].end.lat,
-        lng: TripFactory.data.trips[message.index].end.lon
+        lat: selectedTrip.end.lat,
+        lng: selectedTrip.end.lng
       };
-      TripFactory.data.trips[message.index].pois.forEach(function (poi) {
-        vm.map.markers[poi.name] = poi;
-        vm.map.markers[poi.name].lng = vm.map.markers[poi.name].lon;
+      selectedTrip.pois.forEach(function (poi) {
+        var markerName = 'po_' + poi.id;
+        vm.map.markers[markerName] = poi;
+        vm.map.markers[markerName].lng = vm.map.markers[markerName].location.lng;
+        vm.map.markers[markerName].lat = vm.map.markers[markerName].location.lat;
       });
     });
 
