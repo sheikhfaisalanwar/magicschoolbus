@@ -22,7 +22,6 @@
     };
 
     $scope.logout = function () {
-      console.log('Hit logout');
       LoginService.logout();
     };
 

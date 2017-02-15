@@ -1,8 +1,7 @@
 'use strict';
 var _ = require('lodash');
 var googleMapsClient = require('@google/maps').createClient({
-  // key: process.env.GOOGLEMAPSAPI
-  key: 'AIzaSyB2rSOfI6W1TfNZ3hH0h5SO-OQVxQ4hPCc'
+  key: process.env.GOOGLE_MAPS_API
 });
 module.exports = function(Trips) {
 

@@ -2,17 +2,18 @@
   'use strict';
   angular.module('app', [
     'ionic',
-    'leaflet-directive',
+    // 'leaflet-directive',
+    'ngMap',
     'ng-mfb',
     'ngAutocomplete',
-    'ngCookies',
+    'LocalStorageModule',
     'app.directives',
     'app.factories',
     'login',
     'app.mainMap',
     'app.menu'
   ])
-  .run(['$ionicPlatform', '$rootScope', 'LoginService', '$state', function($ionicPlatform, $rootScope, LoginService, $location) {
+  .run(['$ionicPlatform', '$rootScope', '$state', function($ionicPlatform, $rootScope, $location) {
     $ionicPlatform.ready(function() {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
       // for form inputs)

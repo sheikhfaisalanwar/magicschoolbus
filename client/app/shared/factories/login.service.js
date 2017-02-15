@@ -1,8 +1,8 @@
 ( function () {
   'use strict';
   angular.module('app.factories', [])
-  .service('LoginService', ['$http','$q','$ionicPopup', '$window', '$state', 'API_ENDPOINT',
-    function($http,$q, $ionicPopup, $window, $state, API_ENDPOINT) {
+  .service('LoginService', ['$http','$q','$ionicPopup', '$window', '$state', 'localStorageService', 'API_ENDPOINT',
+    function($http,$q, $ionicPopup, $window, $state, localStorageService, API_ENDPOINT) {
     var services = {};
     var deferred = $q.defer(),
       userObject = {};
@@ -17,7 +17,7 @@
             console.log(successResponse);
             $window.loginstatus=1;
   		      userObject.accessToken = successResponse.data.id;
-            $window.accessToken = successResponse.data.id;
+            localStorageService.set('loginKey', userObject.accessToken);
             deferred.resolve(null);
           },function (errorResponse) {
             deferred.reject(errorResponse);
@@ -49,16 +49,18 @@
 
       logout: function () {
         var promise = deferred.promise;
-        console.log('accessLOGOUT: ', userObject.accessToken);
-        var config = {headers:{
-          'Content-Type': 'application/json',
-          'accessToken': userObject.accessToken
-        }};
-        $http.post(API_ENDPOINT + '/Users/logout',config ).then(function (successResponse) {
+        $http.post(API_ENDPOINT + '/Users/logout',{},{
+          params: {
+            'access_token': userObject.accessToken || localStorageService.get('loginKey')
+          }
+        }).then(function (successResponse) {
+            delete userObject.accessToken;
+            localStorageService.remove('loginKey');
             $state.go('login');
           },function (errorResponse) {
           deferred.reject(errorResponse);
           });
+        return promise;
       }
     };
   }]);

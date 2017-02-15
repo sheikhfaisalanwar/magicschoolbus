@@ -1,14 +1,17 @@
 ( function () {
   'use strict';
   angular.module('app.mainMap', [])
-  .controller('mainMapController', [ '$scope', '$stateParams', '$ionicModal', '$ionicPopup', 'TripFactory',
-    function($scope, $stateParams,$ionicModal, $ionicPopup, TripFactory) {
+  .controller('mainMapController', [ '$rootScope', '$scope', '$stateParams', '$ionicModal', '$ionicPopup', 'TripFactory', 'NgMap',
+    function($rootScope, $scope, $stateParams,$ionicModal, $ionicPopup, TripFactory, NgMap) {
     var vm = this;
 
     vm.title = 'Magic School Bus';
-
+    vm.googleMapsUrl = 'https://maps.googleapis.com/maps/api/js?key=' + 'AIzaSyB4rABfee6qTa6-4ELeCJ763m4V-DuTlLk';
 
     $scope.$on('$stateChangeSuccess', function() {
+      NgMap.getMap().then(function(map) {
+         $rootScope.map = map;
+      });
       vm.map = {
         defaults: {
             tileLayer: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -45,8 +48,7 @@
       selectedTrip.pois.forEach(function (poi) {
         var markerName = 'po_' + poi.id;
         vm.map.markers[markerName] = poi;
-        vm.map.markers[markerName].lng = vm.map.markers[markerName].location.lng;
-        vm.map.markers[markerName].lat = vm.map.markers[markerName].location.lat;
+        vm.map.markers[markerName].location = [vm.map.markers[markerName].location.lat, vm.map.markers[markerName].location.lng];
       });
     });
 

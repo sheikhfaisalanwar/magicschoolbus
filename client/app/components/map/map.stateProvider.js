@@ -12,8 +12,8 @@
         }
       },
       resolve: {
-        authentication: ['LoginService', '$location', function (LoginService, $location) {
-        if (!LoginService.userData.accessToken) {$location.path('/login'); }
+        authentication: ['LoginService', '$location', 'localStorageService', function (LoginService, $location, localStorageService) {
+          if (!LoginService.userData.accessToken && !localStorageService.get('loginKey')) { $location.path('/login'); }
         }]
       }
     });
