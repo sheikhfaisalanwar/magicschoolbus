@@ -1,0 +1,29 @@
+<ion-side-menus enable-menu-with-back-views="false">
+  <ion-side-menu-content>
+    <ion-nav-bar class="bar-dark">
+      <ion-nav-back-button>
+      </ion-nav-back-button>
+      <ion-nav-buttons side="left">
+        <button class="button button-icon button-dark ion-navicon-round" menu-toggle="left">
+        </button>
+      </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-nav-view name="menuContent"></ion-nav-view>
+    <nav mfb-menu
+      position="br"
+      effect="zoomin"
+      label="Create New Trip"
+      active-icon="ion-edit"
+      resting-icon="ion-plus-round"
+      toggling-method="click"
+      bgcolor="#444444"
+      ng-click="menuCtrl.createNewTrip()">
+    </nav>
+  </ion-side-menu-content>
+  <ion-side-menu side="left">
+    <rtp-criteria-panel></rtp-criteria-panel>
+    <button class="button button-block button-assertive logout-button" ng-click="logout()">
+      <i class="ion-android-exit"></i> Logout
+    </button>
+  </ion-side-menu>
+</ion-side-menus>

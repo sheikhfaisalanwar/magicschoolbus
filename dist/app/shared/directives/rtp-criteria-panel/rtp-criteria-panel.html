@@ -1,0 +1,32 @@
+<div class='row top-panel'>
+  <ion-content direction="y" class="list card trip-list">
+    <a class="item" ng-repeat="poi in TripPois" ng-click="openPoi(event,poi.id,  $index)">
+      <div class="row">
+        <div><b>{{poi.name}}</b></div>
+      </div>
+    </a>
+  </ion-content>
+</div>
+<div class='row bottom-panel'>
+  <ion-content direction="y" class="list card trip-list">
+    <a class="item item-dark" ng-repeat="trip in tripList" ng-click="selectTrip($index)">
+      <div class="row">
+        <h2 class="text-white section-text"><b>{{trip.name}}</b></h2>
+        <span class="trip-delete-icon ion-trash-b" ng-click="deleteTrip($index)"></span>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-50">
+          Distance
+          <br>
+          {{trip.distance}}
+        </div>
+        <div class="col-50">
+        Created On
+        <br>
+        {{trip.createdOn}}
+        </div>
+      </div>
+    </a>
+  </ion-content>
+</div>

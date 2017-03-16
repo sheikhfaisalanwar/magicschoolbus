@@ -1,0 +1,133 @@
+body {
+  height: auto;
+  min-height: 200%;
+}
+
+.scroll, .map {
+  display:block;
+  height:100%;
+}
+
+#map {
+  height: 100%;
+}
+
+.text-labels {
+  text-align: center;
+  font-weight: 700;
+  /* Use color, background, set margins for offset, etc */
+}
+
+.text-white {
+  color: #fff;
+}
+
+.z3 .path-text-overlay {
+  font-size: 24px;
+}
+.z2 .path-text-overlay {
+  font-size: 16px;
+}
+.z1 .path-text-overlay {
+  font-size: 8px;
+}
+
+.z0 .path-text-overlay {
+  /*font-size: 4px;*/
+  display: none;
+
+}
+
+.text-center {
+  text-align: center !important;
+}
+
+.text-bold {
+  font-weight: bold;
+}
+
+.section-text {
+  font-size: 160% !important;
+}
+
+
+@media (min-width: 767px) {
+  .menu-content {
+    -webkit-transform: translate3d(270px, 0px, 0px) !important;
+    width: calc(100% - 270px) !important;
+  }
+
+  .bar-header button.ion-navicon-round {
+    display: none;
+  }
+}
+
+
+.login-padding {
+  padding: 15%;
+}
+
+.pac-container.pac-logo {
+  z-index: 1000000;
+}
+
+
+ion-header-bar .title.title-center.header-item {
+  font-size: 200%;
+}
+
+ion-nav-bar {
+}
+
+
+ion-nav-bar button.button-icon.ion-navicon-round {
+  margin-top: -10px;
+
+}
+
+.logout-button {
+  margin-top: -20px !important;
+}
+
+rtp-criteria-panel > div {
+    background-color: #333;
+}
+
+rtp-criteria-panel div.top-panel {
+  height: 50%;
+}
+
+rtp-criteria-panel div.bottom-panel {
+  height: 48%;
+}
+
+rtp-criteria-panel div.card.list {
+    background-color: #555;
+    width: 100%;
+}
+
+rtp-criteria-panel div.card.list > a {
+    background-color: #555;
+    color: #fff;
+    overflow-y: hidden;
+}
+
+rtp-criteria-panel div.card.list > a:hover {
+    background-color: #222;
+    color: #fff;
+}
+
+rtp-criteria-panel ion-scroll {
+  width: 100%;
+  overflow: auto;
+  background-color: #444;
+}
+
+
+rtp-criteria-panel .trip-delete-icon {
+  font-size: 200%;
+  position: absolute;
+  right: 16px;
+  top: 16px;
+  color: red;
+}
