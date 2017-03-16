@@ -6,32 +6,39 @@
     $scope.data = {};
     console.log('ctrl');
 
-    $scope.login = function() {
-        LoginService.login($scope.data.username, $scope.data.password).then(function(data) {
-            return $state.go('app.mainMap');
-        },function(data) {
-            return $ionicPopup.alert({
-                title: 'Login failed!',
-                template: 'Please check your credentials!'
-            });
-        });
-    };
-
-
-
     $ionicModal.fromTemplateUrl('app/components/login/signup.html', {
       scope: $scope,
       animation: 'slide-in-up'
     }).then(function(modal) {
       $scope.userModal = modal;
     });
-    $scope.showSignUpModal = function() {
-      $scope.userModal.show();
+
+    var alertPopup = $ionicPopup.alert({
+        title: 'Login failed!',
+        template: 'Please check your credentials!'
+    });
+
+    $scope.login = function() {
+        LoginService.login($scope.data.username, $scope.data.password).then(function(data) {
+            return $state.go('app.mainMap');
+        },function(data) {
+            return alertPopup.show();
+        });
     };
-    $scope.createNewUser = function(uname, pw) {
-      LoginService.signUp(uname, pw)
+
+    $scope.showSignUpModal = function() {
+      return $scope.userModal.show();
+    };
+    $scope.createNewUser = function() {
+      if ($scope.userModal.signUpPw !== $scope.userModal.signUpPwConfirm) {
+        return $ionicPopup.alert({
+            title: 'Passwords Do Not Match',
+            template: 'Please check your credentials!'
+        });
+      }
+      return LoginService.signUp($scope.userModal.signUpEmail, $scope.userModal.signUpPw)
         .then(function(data) {
-            $scope.userModal.hide();
+            return $scope.userModal.hide();
         },function(data) {
           var alertPopup = $ionicPopup.alert({
               title: 'Signup failed!',
