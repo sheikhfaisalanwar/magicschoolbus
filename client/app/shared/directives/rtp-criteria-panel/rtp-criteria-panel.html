@@ -1,6 +1,6 @@
 <div class='row top-panel'>
   <ion-content direction="y" class="list card trip-list">
-    <a class="item" ng-repeat="poi in TripPois" ng-click="openPoi($index)">
+    <a class="item" ng-repeat="poi in TripPois" ng-click="openPoi(event,poi.id,  $index)">
       <div class="row">
         <div><b>{{poi.name}}</b></div>
       </div>

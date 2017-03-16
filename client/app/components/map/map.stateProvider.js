@@ -1,7 +1,7 @@
 ( function () {
   'use strict';
   angular.module('app')
-  .config(function($stateProvider) {
+  .config(['$stateProvider', function($stateProvider) {
     $stateProvider.state('app.mainMap', {
       url: 'map',
       views: {
@@ -17,5 +17,5 @@
         }]
       }
     });
-  });
+  }]);
 })();

@@ -3,7 +3,7 @@
   angular.module('app')
   .constant('_', window._)
   .constant('API_ENDPOINT', 'http://localhost:3000/api')
-  .config(function($stateProvider, $urlRouterProvider, $logProvider) {
+  .config(['$stateProvider', '$urlRouterProvider', '$logProvider', function($stateProvider, $urlRouterProvider, $logProvider) {
     $stateProvider
       .state('app', {
       url: '/',
@@ -15,5 +15,5 @@
     $logProvider.debugEnabled(false);
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/login');
-  });
+  }]);
 })();

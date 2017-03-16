@@ -25,6 +25,12 @@
     "eslint": "^2.13.1",
     "eslint-config-loopback": "^4.0.0",
     "gulp": "^3.9.1",
+    "gulp-clean": "^0.3.2",
+    "gulp-concat": "^2.6.1",
+    "gulp-copy": "^1.0.0",
+    "gulp-inject": "^4.2.0",
+    "gulp-minify": "0.0.15",
+    "ionic-gulp-html-copy": "^1.0.0",
     "nsp": "^2.1.0"
   },
   "repository": {

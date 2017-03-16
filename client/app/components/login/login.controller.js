@@ -7,10 +7,10 @@
     console.log('ctrl');
 
     $scope.login = function() {
-        LoginService.loginUser($scope.data.username, $scope.data.password).then(function(data) {
-            $state.go('app.mainMap');
+        LoginService.login($scope.data.username, $scope.data.password).then(function(data) {
+            return $state.go('app.mainMap');
         },function(data) {
-            var alertPopup = $ionicPopup.alert({
+            return $ionicPopup.alert({
                 title: 'Login failed!',
                 template: 'Please check your credentials!'
             });
@@ -29,7 +29,7 @@
       $scope.userModal.show();
     };
     $scope.createNewUser = function(uname, pw) {
-      LoginService.signup(uname, pw)
+      LoginService.signUp(uname, pw)
         .then(function(data) {
             $scope.userModal.hide();
         },function(data) {

@@ -58,7 +58,7 @@ module.exports = function(Trips) {
       if (!directionSteps) { return cb(new Error('Direction Segment Fetch Failed', err)); }
       _.forEach(directionSteps, function (step, stepIndex) {
         partialDistCntr+= step.distance.value;
-        if ((partialDistCntr < requestBody.range)) {
+        if ((partialDistCntr > requestBody.range/5)) {
           latLngPairs.push(step['start_location']);
           partialDistCntr = 0;
         }

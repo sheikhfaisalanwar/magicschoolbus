@@ -1,7 +1,7 @@
 ( function () {
   'use strict';
   angular.module('app.factories')
-    .factory('TripFactory', [ '$q', '$http', 'API_ENDPOINT', function($q, $http, API_ENDPOINT) {
+    .factory('TripFactory', [ '$q', '$http', 'LoginService', 'API_ENDPOINT', function($q, $http, LoginService, API_ENDPOINT) {
 
     var recentTripList,
       subListScopes = [],
@@ -37,7 +37,6 @@
         dest: destLatLng,
         range: range
       }).then(function(res){
-        console.log(res);
         getAll().then(function() {
           deferred.resolve(true);
         });
@@ -51,7 +50,6 @@
       var deferred = $q.defer();
       $http.delete(API_ENDPOINT + '/Trips/' + tripId)
         .then(function(res){
-        console.log(res);
         getAll().then(function() {
           deferred.resolve(true);
         });
@@ -63,7 +61,11 @@
 
     function getAll () {
       var deferred = $q.defer();
-      $http.get(API_ENDPOINT + '/Trips').then(function(res){
+      $http.get(API_ENDPOINT + '/Trips',{
+        params: {
+          'access_token': LoginService.userData.accessToken
+        }
+      }).then(function(res){
         TripFactory.data.trips = JSON.parse(JSON.stringify(res.data));
         console.log('getAll',TripFactory.data.trips);
         notifyListChange();
