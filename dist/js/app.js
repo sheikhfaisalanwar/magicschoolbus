@@ -35,7 +35,8 @@
   angular.module('app')
   .constant('_', window._)
   .constant('API_ENDPOINT', 'http://localhost:3000/api')
-  .config(['$stateProvider', '$urlRouterProvider', '$logProvider', function($stateProvider, $urlRouterProvider, $logProvider) {
+  .config(['$stateProvider', '$urlRouterProvider', '$logProvider' , '$httpProvider',
+    function($stateProvider, $urlRouterProvider, $logProvider, $httpProvider) {
     $stateProvider
       .state('app', {
       url: '/',
@@ -47,6 +48,9 @@
     $logProvider.debugEnabled(false);
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/login');
+
+    $httpProvider.defaults.useXDomain = true;
+    delete $httpProvider.defaults.headers.common['X-Requested-With'];
   }]);
 })();
 
