@@ -128,7 +128,6 @@
 
     vm.title = 'Magic School Bus';
     vm.googleMapsUrl = 'https://maps.googleapis.com/maps/api/js?key=' + 'AIzaSyB4rABfee6qTa6-4ELeCJ763m4V-DuTlLk';
-    vm.center = [45.41170736599208, -75.66936492919922];
 
 
     vm.openPoi = function (event, location, poiId) {
@@ -144,18 +143,6 @@
          $rootScope.map = map;
       });
       vm.map = {
-        defaults: {
-            tileLayer: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-            maxZoom: 19,
-            zoomControlPosition: 'bottomleft',
-            scrollWheelZoom: true
-          },
-          center: {
-            lat: 45.41170736599208,
-            lng: -75.66936492919922,
-            zoom: 12
-          },
           markers : {},
           events: {
           }
