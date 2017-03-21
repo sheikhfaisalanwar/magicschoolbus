@@ -89,6 +89,11 @@ ion-nav-bar button.button-icon.ion-navicon-round {
   margin-top: -20px !important;
 }
 
+
+li.mfb-component__wrap > a {
+  background-color: #444444;
+}
+
 rtp-criteria-panel > div {
     background-color: #333;
 }

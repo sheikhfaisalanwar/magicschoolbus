@@ -10,3 +10,8 @@ ion-nav-bar button.button-icon.ion-navicon-round {
 .logout-button {
   margin-top: -20px !important;
 }
+
+
+li.mfb-component__wrap > a {
+  background-color: #444444;
+}

@@ -22,6 +22,7 @@
     "strong-error-handler": "^1.0.1"
   },
   "devDependencies": {
+    "browser-sync": "^2.18.8",
     "eslint": "^2.13.1",
     "eslint-config-loopback": "^4.0.0",
     "gulp": "^3.9.1",
@@ -30,6 +31,7 @@
     "gulp-copy": "^1.0.0",
     "gulp-inject": "^4.2.0",
     "gulp-minify": "0.0.15",
+    "gulp-nodemon": "^2.2.1",
     "ionic-gulp-html-copy": "^1.0.0",
     "nsp": "^2.1.0"
   },

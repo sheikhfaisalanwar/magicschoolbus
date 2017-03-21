@@ -3,7 +3,9 @@ var gulp = require('gulp'),
   gulpClean = require('gulp-clean'),
   gulpMinify = require('gulp-minify'),
   gulpInject = require('gulp-inject'),
-  gulpCopy = require('gulp-copy');
+  gulpCopy = require('gulp-copy'),
+  browserSync = require('browser-sync').create(),
+  reload = browserSync.reload;
 
 var copyHTML = require('ionic-gulp-html-copy');
 
@@ -51,7 +53,7 @@ options.vendor.js = [
 
 options.vendor.css = [
   'ionic/css/ionic.min.css',
-  'ng-material-floating-button/src/mfb/dist/mfb.css',
+  'ng-material-floating-button/mfb/dist/mfb.css',
   ].map(function(subPath) { return options.src + 'bower_components/' + subPath;});
 
 options.fonts = [
@@ -105,9 +107,51 @@ gulp.task('copy.fonts', ['clean'], function() {
       .pipe(gulpCopy(options.dist + 'fonts', {prefix: 4}));
 });
 
-
-
 gulp.task('copy.html', ['clean'], function(){
   return copyHTML({ src: options.app.html, dest: 'dist/app/'});
 });
-gulp.task('default', ['clean', 'concat.app.js', 'concat.vendor.js', 'concat.app.css', 'concat.app.css', 'inject.html.js', 'copy.html', 'copy.fonts']);
+
+gulp.task('serve', ['inject.html.js', 'copy.html', 'copy.fonts'], function() {
+  browserSync.init({
+    server: {
+      baseDir: 'dist'
+    },
+    port: 8000,
+    socket: {
+      domain: 'localhost:8000'
+    }
+   });
+   console.log(options.app.js.concat(
+     options.app.css,
+     options.app.html,
+     options.vendor.js));
+   gulp.watch(options.app.js.concat(
+     options.app.css,
+     options.app.html,
+     options.vendor.js), ['build']);
+   gulp.watch('dist/*.html').on('change', reload);
+});
+
+gulp.task('concat', [
+  'concat.app.js',
+  'concat.vendor.js',
+  'concat.app.css',
+  'concat.app.css',
+]);
+
+gulp.task('copy', [
+  'copy.html',
+  'copy.fonts',
+]);
+
+gulp.task('build', [
+  'clean',
+  'concat',
+  'inject.html.js',
+  'copy'
+]);
+
+gulp.task('default', [
+  'build',
+  'serve'
+  ]);

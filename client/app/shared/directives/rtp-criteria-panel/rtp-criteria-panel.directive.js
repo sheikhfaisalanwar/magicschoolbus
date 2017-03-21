@@ -19,13 +19,13 @@
            scope.PoiModal = modal;
          });
 
-         scope.openPoi= function(event, poiId, poiIndex) {
+         scope.openPoi= function(poiId, poiIndex) {
            scope.selectedPoi = scope.TripPois[poiIndex];
-           $rootScope.map.showInfoWindow(event, poiId);
-          //  scope.PoiModal.show();
+           $rootScope.map.showInfoWindow('poiInfo', poiId);
+           $rootScope.map.setCenter(scope.selectedPoi.position);
+           $rootScope.map.setZoom(10);
          };
          scope.closePoi = function() {
-          //  scope.PoiModal.hide();
          };
 
         scope.selectTrip = function (tripIndex) {

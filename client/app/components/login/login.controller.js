@@ -13,16 +13,15 @@
       $scope.userModal = modal;
     });
 
-    var alertPopup = $ionicPopup.alert({
-        title: 'Login failed!',
-        template: 'Please check your credentials!'
-    });
 
     $scope.login = function() {
         LoginService.login($scope.data.username, $scope.data.password).then(function(data) {
             return $state.go('app.mainMap');
         },function(data) {
-            return alertPopup.show();
+            return $ionicPopup.alert({
+                title: 'Login failed!',
+                template: 'Please check your credentials!'
+            });
         });
     };
 
@@ -40,7 +39,7 @@
         .then(function(data) {
             return $scope.userModal.hide();
         },function(data) {
-          var alertPopup = $ionicPopup.alert({
+          return $ionicPopup.alert({
               title: 'Signup failed!',
               template: 'Please try again!'
           });
