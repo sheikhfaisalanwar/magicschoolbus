@@ -122,20 +122,21 @@
 ( function () {
   'use strict';
   angular.module('app.mainMap', [])
-  .controller('mainMapController', [ '$rootScope', '$scope', '$stateParams', '$ionicModal', '$ionicPopup', 'TripFactory', 'NgMap',
-    function($rootScope, $scope, $stateParams,$ionicModal, $ionicPopup, TripFactory, NgMap) {
+  .controller('mainMapController', [
+    '$rootScope', '$scope', '$stateParams', '$ionicModal', '$ionicPopup', 'TripFactory', 'NgMap', 'PoiFactory',
+    function($rootScope, $scope, $stateParams,$ionicModal, $ionicPopup, TripFactory, NgMap, PoiFactory) {
     var vm = this;
 
     vm.title = 'Magic School Bus';
     vm.googleMapsUrl = 'https://maps.googleapis.com/maps/api/js?key=' + 'AIzaSyB4rABfee6qTa6-4ELeCJ763m4V-DuTlLk';
 
-
-    vm.openPoi = function (event, location, poiId) {
-      console.log(location);
-      vm.poiInfo = vm.map.markers['poi_' + poiId];
-      $rootScope.map.showInfoWindow('poiInfo', poiId);
-      $rootScope.map.setCenter(event.latLng);
-      $rootScope.map.setZoom(10);
+    PoiFactory.onPoiChange($scope, function (event, poiObj) {
+      vm.poiInfo = vm.map.markers['poi_' + poiObj.poiId];
+      $rootScope.map.showInfoWindow('poiInfo', poiObj.poiId);
+    });
+    vm.openPoi = function (event, poiId) {
+      console.log(poiId);
+      PoiFactory.notifyPoiChange(poiId);
     };
 
     $scope.$on('$stateChangeSuccess', function() {
@@ -237,8 +238,8 @@
   'use strict';
   angular.module('app.directives', [])
   .directive('rtpCriteriaPanel', [
-    '$rootScope', 'TripFactory', '$ionicModal',
-    function($rootScope, TripFactory, $ionicModal) {
+    '$rootScope', 'TripFactory', '$ionicModal', 'PoiFactory',
+    function($rootScope, TripFactory, $ionicModal, PoiFactory) {
     return {
       templateUrl: 'app/shared/directives/rtp-criteria-panel/rtp-criteria-panel.html',
       link: link
@@ -255,10 +256,7 @@
          });
 
          scope.openPoi= function(poiId, poiIndex) {
-           scope.selectedPoi = scope.TripPois[poiIndex];
-           $rootScope.map.showInfoWindow('poiInfo', poiId);
-           $rootScope.map.setCenter(scope.selectedPoi.position);
-           $rootScope.map.setZoom(10);
+           PoiFactory.notifyPoiChange(poiId);
          };
          scope.closePoi = function() {
          };
@@ -352,6 +350,37 @@
         });
       return promise;
     }
+  }]);
+})();
+
+( function () {
+  'use strict';
+  angular.module('app.factories')
+    .factory('PoiFactory', [ '$q', '$http', 'LoginService', 'API_ENDPOINT', function($q, $http, LoginService, API_ENDPOINT) {
+
+    var poiScopes = [],
+      TripFactory = {
+       onPoiChange: onPoiChange,
+       notifyPoiChange: notifyPoiChange,
+       data: {
+         currentPoi: {}
+         }
+       };
+
+    function notifyPoiChange(poiId) {
+      if (!poiScopes.length) { return; }
+      poiScopes.forEach(function (subScope) {
+        subScope.$broadcast('PoiFactory-poiChange', {poiId: poiId});
+      });
+    }
+
+    function onPoiChange (subScope, subCb) {
+      subScope.$on('PoiFactory-poiChange', subCb);
+      poiScopes.push(subScope);
+    }
+
+    return TripFactory;
+
   }]);
 })();
 

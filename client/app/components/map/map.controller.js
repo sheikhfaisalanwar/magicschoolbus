@@ -1,20 +1,21 @@
 ( function () {
   'use strict';
   angular.module('app.mainMap', [])
-  .controller('mainMapController', [ '$rootScope', '$scope', '$stateParams', '$ionicModal', '$ionicPopup', 'TripFactory', 'NgMap',
-    function($rootScope, $scope, $stateParams,$ionicModal, $ionicPopup, TripFactory, NgMap) {
+  .controller('mainMapController', [
+    '$rootScope', '$scope', '$stateParams', '$ionicModal', '$ionicPopup', 'TripFactory', 'NgMap', 'PoiFactory',
+    function($rootScope, $scope, $stateParams,$ionicModal, $ionicPopup, TripFactory, NgMap, PoiFactory) {
     var vm = this;
 
     vm.title = 'Magic School Bus';
     vm.googleMapsUrl = 'https://maps.googleapis.com/maps/api/js?key=' + 'AIzaSyB4rABfee6qTa6-4ELeCJ763m4V-DuTlLk';
 
-
-    vm.openPoi = function (event, location, poiId) {
-      console.log(location);
-      vm.poiInfo = vm.map.markers['poi_' + poiId];
-      $rootScope.map.showInfoWindow('poiInfo', poiId);
-      $rootScope.map.setCenter(event.latLng);
-      $rootScope.map.setZoom(10);
+    PoiFactory.onPoiChange($scope, function (event, poiObj) {
+      vm.poiInfo = vm.map.markers['poi_' + poiObj.poiId];
+      $rootScope.map.showInfoWindow('poiInfo', poiObj.poiId);
+    });
+    vm.openPoi = function (event, poiId) {
+      console.log(poiId);
+      PoiFactory.notifyPoiChange(poiId);
     };
 
     $scope.$on('$stateChangeSuccess', function() {

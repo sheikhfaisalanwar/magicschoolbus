@@ -9,7 +9,7 @@
           origin="{{mainMapCtrl.map.markers.start}}"
           destination="{{mainMapCtrl.map.markers.end}}">
         </directions>
-        <marker ng-repeat="poi in mainMapCtrl.map.markers " id="{{poi.id}}" position="{{poi.location}}" on-click="mainMapCtrl.openPoi(poi.location,poi.id)"></marker>
+        <marker ng-repeat="poi in mainMapCtrl.map.markers " id="{{poi.id}}" position="{{poi.location}}" on-click="mainMapCtrl.openPoi(poi.id)"></marker>
         <info-window id="poiInfo" max-width="200">
           <div>
             <div id="siteNotice"></div>

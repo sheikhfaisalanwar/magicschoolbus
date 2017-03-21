@@ -2,8 +2,8 @@
   'use strict';
   angular.module('app.directives', [])
   .directive('rtpCriteriaPanel', [
-    '$rootScope', 'TripFactory', '$ionicModal',
-    function($rootScope, TripFactory, $ionicModal) {
+    '$rootScope', 'TripFactory', '$ionicModal', 'PoiFactory',
+    function($rootScope, TripFactory, $ionicModal, PoiFactory) {
     return {
       templateUrl: 'app/shared/directives/rtp-criteria-panel/rtp-criteria-panel.html',
       link: link
@@ -20,10 +20,7 @@
          });
 
          scope.openPoi= function(poiId, poiIndex) {
-           scope.selectedPoi = scope.TripPois[poiIndex];
-           $rootScope.map.showInfoWindow('poiInfo', poiId);
-           $rootScope.map.setCenter(scope.selectedPoi.position);
-           $rootScope.map.setZoom(10);
+           PoiFactory.notifyPoiChange(poiId);
          };
          scope.closePoi = function() {
          };
