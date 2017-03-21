@@ -1,7 +1,7 @@
 ( function () {
   'use strict';
   angular.module('app')
-  .config(['$stateProvider', function($stateProvider) {
+  .config(['$stateProvider', '_', function($stateProvider, _) {
     $stateProvider.state('app.mainMap', {
       url: 'map',
       views: {
@@ -13,7 +13,10 @@
       },
       resolve: {
         authentication: ['LoginService', '$location', 'localStorageService', function (LoginService, $location, localStorageService) {
-          if (!LoginService.userData.accessToken && !localStorageService.get('loginKey')) { $location.path('/login'); }
+          if (_.isNil(LoginService.userData.accessToken) &&
+            _.isNil(localStorageService.get('loginKey'))) {
+            $location.path('/login');
+          }
         }]
       }
     });
