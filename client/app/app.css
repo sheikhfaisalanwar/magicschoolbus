@@ -75,3 +75,9 @@ body {
 ion-header-bar .title.title-center.header-item {
   font-size: 200%;
 }
+
+
+.scroll-bar-indicator
+{
+	display: none;
+}

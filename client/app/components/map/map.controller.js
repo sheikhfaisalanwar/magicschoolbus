@@ -1,20 +1,23 @@
 ( function () {
   'use strict';
-  angular.module('app.mainMap', [])
-  .controller('mainMapController', [
+  angular.module('app.map', [])
+  .controller('mapController', [
     '$rootScope', '$scope', '$stateParams', '$ionicModal', '$ionicPopup', 'TripFactory', 'NgMap', 'PoiFactory',
     function($rootScope, $scope, $stateParams,$ionicModal, $ionicPopup, TripFactory, NgMap, PoiFactory) {
     var vm = this;
 
     vm.title = 'Magic School Bus';
     vm.googleMapsUrl = 'https://maps.googleapis.com/maps/api/js?key=' + 'AIzaSyB4rABfee6qTa6-4ELeCJ763m4V-DuTlLk';
-
+    vm.map = {
+        markers : {},
+        events: {
+        }
+    };
     PoiFactory.onPoiChange($scope, function (event, poiObj) {
       vm.poiInfo = vm.map.markers['poi_' + poiObj.poiId];
       $rootScope.map.showInfoWindow('poiInfo', poiObj.poiId);
     });
     vm.openPoi = function (event, poiId) {
-      console.log(poiId);
       PoiFactory.notifyPoiChange(poiId);
     };
 
@@ -22,14 +25,9 @@
       NgMap.getMap().then(function(map) {
          $rootScope.map = map;
       });
-      vm.map = {
-          markers : {},
-          events: {
-          }
-      };
     });
     TripFactory.onListChange($scope, function() {
-      vm.map.markers = {};
+      delete vm.map.markers;
     });
     TripFactory.onTripFocusChange($scope, function (event, focusedTrip) {
       vm.map.markers = {};
@@ -48,5 +46,6 @@
         vm.map.markers[markerName].location = [vm.map.markers[markerName].location.lat, vm.map.markers[markerName].location.lng];
       });
     });
+    return vm;
   }]);
 })();

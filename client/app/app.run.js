@@ -10,7 +10,7 @@
     'app.directives',
     'app.factories',
     'login',
-    'app.mainMap',
+    'app.map',
     'app.menu'
   ])
   .run(['$ionicPlatform', '$rootScope', '$state', function($ionicPlatform, $rootScope, $location) {

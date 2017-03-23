@@ -22,7 +22,9 @@
     };
 
     $scope.logout = function () {
-      LoginService.logout();
+      LoginService.logout().then(function() {
+        delete TripFactory.data.trips;
+      });
     };
 
     $scope.createTrip = function (tripInput) {
@@ -35,5 +37,9 @@
         });
       });
     };
+
+    $scope.$on('$ionicView.beforeEnter',function(){
+      TripFactory.getAll();
+    });
   }]);
 })();

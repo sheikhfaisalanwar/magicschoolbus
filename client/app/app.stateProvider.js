@@ -2,7 +2,7 @@
    'use strict';
   angular.module('app')
   .constant('_', window._)
-  .constant('API_ENDPOINT', 'http://magicschoolbus.herokuapp.com/api')
+  .constant('API_ENDPOINT', 'http://localhost:3000/api')
   .config(['$stateProvider', '$urlRouterProvider', '$logProvider' , '$httpProvider',
     function($stateProvider, $urlRouterProvider, $logProvider, $httpProvider) {
     $stateProvider

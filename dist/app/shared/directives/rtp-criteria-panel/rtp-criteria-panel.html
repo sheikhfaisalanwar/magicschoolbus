@@ -1,14 +1,8 @@
-<div class='row top-panel'>
-  <ion-content direction="y" class="list card trip-list">
-    <a class="item" ng-repeat="poi in TripPois" ng-click="openPoi(poi.id, $index)">
-      <div class="row">
-        <div><b>{{poi.name}}</b></div>
-      </div>
-    </a>
-  </ion-content>
+<div style="position:absolute; top: 1%;">
+  <h3 style="color: #fff;">Trips</h3>
 </div>
-<div class='row bottom-panel'>
-  <ion-content direction="y" class="list card trip-list">
+<div class="row top-panel">
+  <ion-content overflow-scroll="true" class="list trip-list" ng-show="tripList.length">
     <a class="item item-dark" ng-repeat="trip in tripList" ng-click="selectTrip($index)">
       <div class="row">
         <h2 class="text-white section-text"><b>{{trip.name}}</b></h2>
@@ -26,6 +20,18 @@
         <br>
         {{trip.createdOn}}
         </div>
+      </div>
+    </a>
+  </ion-content>
+</div>
+<div style="position:absolute; top: 45%;" ng-show="TripPois.length">
+  <h3 style="color: #fff;">Points of Intrest</h3>
+</div>
+<div class="row bottom-panel">
+  <ion-content overflow-scroll="true" class="list trip-list" ng-show="TripPois.length">
+    <a class="item" ng-repeat="poi in TripPois" ng-click="openPoi(poi.id, $index)">
+      <div class="row">
+        <div><b>{{poi.name}}</b></div>
       </div>
     </a>
   </ion-content>

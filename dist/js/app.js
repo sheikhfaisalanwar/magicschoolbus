@@ -10,7 +10,7 @@
     'app.directives',
     'app.factories',
     'login',
-    'app.mainMap',
+    'app.map',
     'app.menu'
   ])
   .run(['$ionicPlatform', '$rootScope', '$state', function($ionicPlatform, $rootScope, $location) {
@@ -34,7 +34,7 @@
    'use strict';
   angular.module('app')
   .constant('_', window._)
-  .constant('API_ENDPOINT', 'http://magicschoolbus.herokuapp.com/api')
+  .constant('API_ENDPOINT', 'http://localhost:3000/api')
   .config(['$stateProvider', '$urlRouterProvider', '$logProvider' , '$httpProvider',
     function($stateProvider, $urlRouterProvider, $logProvider, $httpProvider) {
     $stateProvider
@@ -57,41 +57,40 @@
 ( function () {
   'use strict';
   angular.module('login', [])
-  .controller('loginController', ['$scope', 'LoginService', '$ionicPopup', '$state', '$ionicModal',
-  function($scope, LoginService, $ionicPopup, $state, $ionicModal) {
+  .controller('loginController', ['$scope', 'LoginService', '$ionicPopup', '$location', '$ionicModal',
+  function($scope, LoginService, $ionicPopup, $location, $ionicModal) {
     $scope.data = {};
-    console.log('ctrl');
 
     $ionicModal.fromTemplateUrl('app/components/login/signup.html', {
       scope: $scope,
       animation: 'slide-in-up'
     }).then(function(modal) {
-      $scope.userModal = modal;
+      $scope.signUpModal = modal;
     });
 
 
     $scope.login = function() {
-        LoginService.login($scope.data.username, $scope.data.password).then(function(data) {
-            return $state.go('app.mainMap');
-        },function(data) {
-            return $ionicPopup.alert({
-                title: 'Login failed!',
-                template: 'Please check your credentials!'
-            });
-        });
+      return LoginService.login($scope.data.email, $scope.data.password).then(function(data) {
+          return $location.path('/map');
+      },function(data) {
+          return $ionicPopup.alert({
+              title: 'Login failed!',
+              template: 'Please check your credentials!'
+          });
+      });
     };
 
     $scope.showSignUpModal = function() {
       return $scope.userModal.show();
     };
     $scope.createNewUser = function() {
-      if ($scope.userModal.signUpPw !== $scope.userModal.signUpPwConfirm) {
+      if ($scope.data.signUpPw !== $scope.data.signUpPwConfirm) {
         return $ionicPopup.alert({
             title: 'Passwords Do Not Match',
             template: 'Please check your credentials!'
         });
       }
-      return LoginService.signUp($scope.userModal.signUpEmail, $scope.userModal.signUpPw)
+      return LoginService.signUp($scope.data.signUpEmail, $scope.data.signUpPw)
         .then(function(data) {
             return $scope.userModal.hide();
         },function(data) {
@@ -121,21 +120,24 @@
 
 ( function () {
   'use strict';
-  angular.module('app.mainMap', [])
-  .controller('mainMapController', [
+  angular.module('app.map', [])
+  .controller('mapController', [
     '$rootScope', '$scope', '$stateParams', '$ionicModal', '$ionicPopup', 'TripFactory', 'NgMap', 'PoiFactory',
     function($rootScope, $scope, $stateParams,$ionicModal, $ionicPopup, TripFactory, NgMap, PoiFactory) {
     var vm = this;
 
     vm.title = 'Magic School Bus';
     vm.googleMapsUrl = 'https://maps.googleapis.com/maps/api/js?key=' + 'AIzaSyB4rABfee6qTa6-4ELeCJ763m4V-DuTlLk';
-
+    vm.map = {
+        markers : {},
+        events: {
+        }
+    };
     PoiFactory.onPoiChange($scope, function (event, poiObj) {
       vm.poiInfo = vm.map.markers['poi_' + poiObj.poiId];
       $rootScope.map.showInfoWindow('poiInfo', poiObj.poiId);
     });
     vm.openPoi = function (event, poiId) {
-      console.log(poiId);
       PoiFactory.notifyPoiChange(poiId);
     };
 
@@ -143,14 +145,9 @@
       NgMap.getMap().then(function(map) {
          $rootScope.map = map;
       });
-      vm.map = {
-          markers : {},
-          events: {
-          }
-      };
     });
     TripFactory.onListChange($scope, function() {
-      vm.map.markers = {};
+      delete vm.map.markers;
     });
     TripFactory.onTripFocusChange($scope, function (event, focusedTrip) {
       vm.map.markers = {};
@@ -169,6 +166,7 @@
         vm.map.markers[markerName].location = [vm.map.markers[markerName].location.lat, vm.map.markers[markerName].location.lng];
       });
     });
+    return vm;
   }]);
 })();
 
@@ -176,13 +174,13 @@
   'use strict';
   angular.module('app')
   .config(['$stateProvider', '_', function($stateProvider, _) {
-    $stateProvider.state('app.mainMap', {
+    $stateProvider.state('app.map', {
       url: 'map',
       views: {
         'menuContent': {
           templateUrl: 'app/components/map/map.view.html',
-          controller: 'mainMapController',
-          controllerAs: 'mainMapCtrl'
+          controller: 'mapController',
+          controllerAs: 'mapCtrl'
         }
       },
       resolve: {
@@ -221,7 +219,9 @@
     };
 
     $scope.logout = function () {
-      LoginService.logout();
+      LoginService.logout().then(function() {
+        delete TripFactory.data.trips;
+      });
     };
 
     $scope.createTrip = function (tripInput) {
@@ -234,6 +234,10 @@
         });
       });
     };
+
+    $scope.$on('$ionicView.beforeEnter',function(){
+      TripFactory.getAll();
+    });
   }]);
 })();
 
@@ -249,8 +253,6 @@
     };
 
     function link(scope, elem, attrs) {
-        TripFactory.getAll();
-
         $ionicModal.fromTemplateUrl('app/shared/directives/rtp-criteria-panel/poi-modal.html', {
            scope: scope,
            animation: 'slide-in-up'
@@ -280,7 +282,6 @@
           scope.TripPois = TripFactory.data.trips[focusedTrip.index].pois;
         });
 
-
     }
   }]);
 })();
@@ -293,6 +294,7 @@
     var deferred = $q.defer(),
       userData = {};
     userData.accessToken = localStorageService.get('loginKey');
+    userData.userId = localStorageService.get('loginId');
     return {
       userData: userData,
       login: login,
@@ -305,10 +307,11 @@
         'email': name,
         'password': pw
       }).then(function (successResponse) {
-          console.log(successResponse);
           $window.loginstatus=1;
-		      userData.accessToken = successResponse.data.id;
+          userData.accessToken = successResponse.data.id;
+		      userData.userId = successResponse.data.userId;
           localStorageService.set('loginKey', userData.accessToken);
+          localStorageService.set('loginId', userData.userId);
           deferred.resolve(null);
         },function (errorResponse) {
           deferred.reject(errorResponse);
@@ -324,7 +327,6 @@
         'email':name,
         'password':pw
       }).then(function (successResponse) {
-        console.log(successResponse);
         if(successResponse.data.email === name) {
           var alertPopup = $ionicPopup.alert({
             title: 'Registration Successful',
@@ -347,6 +349,7 @@
       }).then(function (successResponse) {
           delete userData.accessToken;
           localStorageService.remove('loginKey');
+          localStorageService.remove('loginId');
           $state.go('login');
         },function (errorResponse) {
         deferred.reject(errorResponse);
@@ -449,14 +452,20 @@
     }
 
     function getAll () {
+      delete TripFactory.data.trips;
+      notifyListChange();
       var deferred = $q.defer();
       $http.get(API_ENDPOINT + '/Trips',{
         params: {
-          'access_token': LoginService.userData.accessToken
-        }
+          'access_token': LoginService.userData.accessToken,
+          filter: {
+            where: {
+              userId: LoginService.userData.userId
+            }
+          }
+        },
       }).then(function(res){
         TripFactory.data.trips = JSON.parse(JSON.stringify(res.data));
-        console.log('getAll',TripFactory.data.trips);
         notifyListChange();
         deferred.resolve(res.data);
       },function(err) {

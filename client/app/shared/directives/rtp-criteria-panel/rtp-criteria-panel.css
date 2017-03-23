@@ -1,18 +1,27 @@
-rtp-criteria-panel > div {
-    background-color: #333;
+rtp-criteria-panel div.bottom-panel {
+  top: 50%;
+  height:50%;
+  width: 95%;
+  position: absolute;
+}
+rtp-criteria-panel div.bottom-panel > ion-content.list {
+  margin-bottom: 40px;
+  background-color: #444;
 }
 
 rtp-criteria-panel div.top-panel {
-  height: 50%;
+  width: 97%;
+  top: 5%;
+  height:40%;
+  position: absolute;
 }
 
-rtp-criteria-panel div.bottom-panel {
-  height: 48%;
+rtp-criteria-panel div.top-panel > ion-content.list {
+  margin-bottom: 20px;
 }
 
-rtp-criteria-panel div.card.list {
-    background-color: #555;
-    width: 100%;
+rtp-criteria-panel div.top-panel > ion-content.list > div.scroll{
+  background-color: #444;
 }
 
 rtp-criteria-panel div.card.list > a {

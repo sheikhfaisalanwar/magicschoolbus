@@ -20,9 +20,9 @@
       ng-click="menuCtrl.createNewTrip()">
     </nav>
   </ion-side-menu-content>
-  <ion-side-menu side="left">
-    <rtp-criteria-panel></rtp-criteria-panel>
-    <button class="button button-block button-assertive logout-button" ng-click="logout()">
+  <ion-side-menu side="left" style="background-color: #333;">
+    <rtp-criteria-panel overflow-scroll="true"></rtp-criteria-panel>
+    <button class="button button-block button-assertive logout-button" ng-click="logout()" style="margin-bottom: 0px;">
       <i class="ion-android-exit"></i> Logout
     </button>
   </ion-side-menu>

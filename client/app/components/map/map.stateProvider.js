@@ -2,13 +2,13 @@
   'use strict';
   angular.module('app')
   .config(['$stateProvider', '_', function($stateProvider, _) {
-    $stateProvider.state('app.mainMap', {
+    $stateProvider.state('app.map', {
       url: 'map',
       views: {
         'menuContent': {
           templateUrl: 'app/components/map/map.view.html',
-          controller: 'mainMapController',
-          controllerAs: 'mainMapCtrl'
+          controller: 'mapController',
+          controllerAs: 'mapCtrl'
         }
       },
       resolve: {

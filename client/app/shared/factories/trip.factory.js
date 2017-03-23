@@ -60,14 +60,20 @@
     }
 
     function getAll () {
+      delete TripFactory.data.trips;
+      notifyListChange();
       var deferred = $q.defer();
       $http.get(API_ENDPOINT + '/Trips',{
         params: {
-          'access_token': LoginService.userData.accessToken
-        }
+          'access_token': LoginService.userData.accessToken,
+          filter: {
+            where: {
+              userId: LoginService.userData.userId
+            }
+          }
+        },
       }).then(function(res){
         TripFactory.data.trips = JSON.parse(JSON.stringify(res.data));
-        console.log('getAll',TripFactory.data.trips);
         notifyListChange();
         deferred.resolve(res.data);
       },function(err) {

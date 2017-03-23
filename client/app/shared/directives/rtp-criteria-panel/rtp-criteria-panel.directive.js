@@ -10,8 +10,6 @@
     };
 
     function link(scope, elem, attrs) {
-        TripFactory.getAll();
-
         $ionicModal.fromTemplateUrl('app/shared/directives/rtp-criteria-panel/poi-modal.html', {
            scope: scope,
            animation: 'slide-in-up'
@@ -40,7 +38,6 @@
         TripFactory.onTripFocusChange(scope, function(event, focusedTrip) {
           scope.TripPois = TripFactory.data.trips[focusedTrip.index].pois;
         });
-
 
     }
   }]);

@@ -76,7 +76,14 @@ ion-header-bar .title.title-center.header-item {
   font-size: 200%;
 }
 
-ion-nav-bar {
+
+.scroll-bar-indicator
+{
+	display: none;
+}
+
+ion-side-menu {
+  background-color: #333;
 }
 
 
@@ -86,7 +93,9 @@ ion-nav-bar button.button-icon.ion-navicon-round {
 }
 
 .logout-button {
-  margin-top: -20px !important;
+  position: absolute;
+  bottom: 0px;
+  z-index: 10;
 }
 
 
@@ -94,21 +103,30 @@ li.mfb-component__wrap > a {
   background-color: #444444;
 }
 
-rtp-criteria-panel > div {
-    background-color: #333;
+rtp-criteria-panel div.bottom-panel {
+  top: 50%;
+  height:50%;
+  width: 95%;
+  position: absolute;
+}
+rtp-criteria-panel div.bottom-panel > ion-content.list {
+  margin-bottom: 40px;
+  background-color: #444;
 }
 
 rtp-criteria-panel div.top-panel {
-  height: 50%;
+  width: 97%;
+  top: 5%;
+  height:40%;
+  position: absolute;
 }
 
-rtp-criteria-panel div.bottom-panel {
-  height: 48%;
+rtp-criteria-panel div.top-panel > ion-content.list {
+  margin-bottom: 20px;
 }
 
-rtp-criteria-panel div.card.list {
-    background-color: #555;
-    width: 100%;
+rtp-criteria-panel div.top-panel > ion-content.list > div.scroll{
+  background-color: #444;
 }
 
 rtp-criteria-panel div.card.list > a {

@@ -6,6 +6,7 @@
     var deferred = $q.defer(),
       userData = {};
     userData.accessToken = localStorageService.get('loginKey');
+    userData.userId = localStorageService.get('loginId');
     return {
       userData: userData,
       login: login,
@@ -18,10 +19,11 @@
         'email': name,
         'password': pw
       }).then(function (successResponse) {
-          console.log(successResponse);
           $window.loginstatus=1;
-		      userData.accessToken = successResponse.data.id;
+          userData.accessToken = successResponse.data.id;
+		      userData.userId = successResponse.data.userId;
           localStorageService.set('loginKey', userData.accessToken);
+          localStorageService.set('loginId', userData.userId);
           deferred.resolve(null);
         },function (errorResponse) {
           deferred.reject(errorResponse);
@@ -37,7 +39,6 @@
         'email':name,
         'password':pw
       }).then(function (successResponse) {
-        console.log(successResponse);
         if(successResponse.data.email === name) {
           var alertPopup = $ionicPopup.alert({
             title: 'Registration Successful',
@@ -60,6 +61,7 @@
       }).then(function (successResponse) {
           delete userData.accessToken;
           localStorageService.remove('loginKey');
+          localStorageService.remove('loginId');
           $state.go('login');
         },function (errorResponse) {
         deferred.reject(errorResponse);
