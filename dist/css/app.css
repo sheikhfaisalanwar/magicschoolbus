@@ -1,0 +1,156 @@
+body {
+  height: auto;
+  min-height: 200%;
+}
+
+.scroll, .map {
+  display:block;
+  height:100%;
+}
+
+#map {
+  height: 100%;
+}
+
+.text-labels {
+  text-align: center;
+  font-weight: 700;
+  /* Use color, background, set margins for offset, etc */
+}
+
+.text-white {
+  color: #fff;
+}
+
+.z3 .path-text-overlay {
+  font-size: 24px;
+}
+.z2 .path-text-overlay {
+  font-size: 16px;
+}
+.z1 .path-text-overlay {
+  font-size: 8px;
+}
+
+.z0 .path-text-overlay {
+  /*font-size: 4px;*/
+  display: none;
+
+}
+
+.text-center {
+  text-align: center !important;
+}
+
+.text-bold {
+  font-weight: bold;
+}
+
+.section-text {
+  font-size: 160% !important;
+}
+
+
+@media (min-width: 767px) {
+  .menu-content {
+    -webkit-transform: translate3d(270px, 0px, 0px) !important;
+    width: calc(100% - 270px) !important;
+  }
+
+  .bar-header button.ion-navicon-round {
+    display: none;
+  }
+}
+
+
+.login-padding {
+  padding: 15%;
+}
+
+.pac-container.pac-logo {
+  z-index: 1000000;
+}
+
+
+ion-header-bar .title.title-center.header-item {
+  font-size: 200%;
+}
+
+
+.scroll-bar-indicator
+{
+	display: none;
+}
+
+ion-side-menu {
+  background-color: #333;
+}
+
+
+ion-nav-bar button.button-icon.ion-navicon-round {
+  margin-top: -10px;
+
+}
+
+.logout-button {
+  position: absolute;
+  bottom: 0px;
+  z-index: 10;
+}
+
+
+li.mfb-component__wrap > a {
+  background-color: #444444;
+}
+
+rtp-criteria-panel div.bottom-panel {
+  top: 50%;
+  height:50%;
+  width: 95%;
+  position: absolute;
+}
+rtp-criteria-panel div.bottom-panel > ion-content.list {
+  margin-bottom: 40px;
+  background-color: #444;
+}
+
+rtp-criteria-panel div.top-panel {
+  width: 97%;
+  top: 5%;
+  height:40%;
+  position: absolute;
+}
+
+rtp-criteria-panel div.top-panel > ion-content.list {
+  margin-bottom: 20px;
+}
+
+rtp-criteria-panel div.top-panel > ion-content.list > div.scroll{
+  background-color: #444;
+}
+
+rtp-criteria-panel div.card.list > a {
+    background-color: #555;
+    color: #fff;
+    overflow-y: hidden;
+}
+
+rtp-criteria-panel div.card.list > a:hover {
+    background-color: #222;
+    color: #fff;
+}
+
+rtp-criteria-panel ion-scroll {
+  width: 100%;
+  overflow: auto;
+  background-color: #444;
+}
+
+
+rtp-criteria-panel .trip-delete-icon {
+  font-size: 200%;
+  position: absolute;
+  right: 16px;
+  top: 16px;
+  color: red;
+}

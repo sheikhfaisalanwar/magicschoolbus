@@ -3,7 +3,12 @@ body {
   min-height: 200%;
 }
 
-.scroll, .angular-leaflet-map {
+.scroll, .map {
+  display:block;
+  height:100%;
+}
+
+#map {
   height: 100%;
 }
 
@@ -70,3 +75,9 @@ body {
 ion-header-bar .title.title-center.header-item {
   font-size: 200%;
 }
+
+.scroll-bar-indicator
+{
+	display: none;
+}
+

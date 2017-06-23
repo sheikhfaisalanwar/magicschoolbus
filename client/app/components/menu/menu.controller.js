@@ -1,10 +1,12 @@
 ( function () {
   'use strict';
   angular.module('app.menu', [])
-  .controller('menuController', function($scope, $ionicModal, $timeout, LoginService, TripFactory) {
+  .controller('menuController', [
+    '$scope', '$ionicModal', '$timeout', 'LoginService', 'TripFactory',
+    function($scope, $ionicModal, $timeout, LoginService, TripFactory) {
+
     var vm = this;
     $scope.autoCompleteOpts = {
-      country: 'ca'
     };
     $ionicModal.fromTemplateUrl('app/components/menu/createTripModal.html', {
       scope: $scope,
@@ -20,19 +22,25 @@
     };
 
     $scope.logout = function () {
-      LoginService.logout();
+      LoginService.logout().then(function() {
+        delete TripFactory.data.trips;
+      });
     };
 
     $scope.createTrip = function (tripInput) {
       TripFactory.convertAddressToCoordinates(tripInput.source).then(function (sourceCoords) {
         TripFactory.convertAddressToCoordinates(tripInput.dest).then(function (destCoords) {
-          TripFactory.createTripfromParams(sourceCoords, destCoords, tripInput.range).then(function (success) {
+
+          TripFactory.createOne(tripInput.name, sourceCoords, destCoords, tripInput.range).then(function () {
             $scope.closeModal();
             TripFactory.getAll();
-
           });
         });
       });
     };
-  });
+
+    $scope.$on('$ionicView.beforeEnter',function(){
+      TripFactory.getAll();
+    });
+  }]);
 })();

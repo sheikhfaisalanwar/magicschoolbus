@@ -1,39 +1,44 @@
 ( function () {
   'use strict';
   angular.module('login', [])
-  .controller('loginController', ['$scope', 'LoginService', '$ionicPopup', '$state', '$ionicModal',
-  function($scope, LoginService, $ionicPopup, $state, $ionicModal) {
+  .controller('loginController', ['$scope', 'LoginService', '$ionicPopup', '$location', '$ionicModal',
+  function($scope, LoginService, $ionicPopup, $location, $ionicModal) {
     $scope.data = {};
-    console.log('ctrl');
-
-    $scope.login = function() {
-        LoginService.loginUser($scope.data.username, $scope.data.password).then(function(data) {
-            $state.go('app.mainMap');
-        },function(data) {
-            var alertPopup = $ionicPopup.alert({
-                title: 'Login failed!',
-                template: 'Please check your credentials!'
-            });
-        });
-    };
-
-
 
     $ionicModal.fromTemplateUrl('app/components/login/signup.html', {
       scope: $scope,
       animation: 'slide-in-up'
     }).then(function(modal) {
-      $scope.userModal = modal;
+      $scope.signUpModal = modal;
     });
-    $scope.showSignUpModal = function() {
-      $scope.userModal.show();
+
+
+    $scope.login = function() {
+      return LoginService.login($scope.data.email, $scope.data.password).then(function(data) {
+          return $location.path('/map');
+      },function(data) {
+          return $ionicPopup.alert({
+              title: 'Login failed!',
+              template: 'Please check your credentials!'
+          });
+      });
     };
-    $scope.createNewUser = function(uname, pw) {
-      LoginService.signup(uname, pw)
+
+    $scope.showSignUpModal = function() {
+      return $scope.userModal.show();
+    };
+    $scope.createNewUser = function() {
+      if ($scope.data.signUpPw !== $scope.data.signUpPwConfirm) {
+        return $ionicPopup.alert({
+            title: 'Passwords Do Not Match',
+            template: 'Please check your credentials!'
+        });
+      }
+      return LoginService.signUp($scope.data.signUpEmail, $scope.data.signUpPw)
         .then(function(data) {
-            $scope.userModal.hide();
+            return $scope.userModal.hide();
         },function(data) {
-          var alertPopup = $ionicPopup.alert({
+          return $ionicPopup.alert({
               title: 'Signup failed!',
               template: 'Please try again!'
           });

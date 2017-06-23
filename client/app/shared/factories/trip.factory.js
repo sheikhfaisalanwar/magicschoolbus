@@ -1,7 +1,7 @@
 ( function () {
   'use strict';
   angular.module('app.factories')
-    .factory('TripFactory', [ '$q', '$http', 'API_ENDPOINT', function($q, $http, API_ENDPOINT) {
+    .factory('TripFactory', [ '$q', '$http', 'LoginService', 'API_ENDPOINT', function($q, $http, LoginService, API_ENDPOINT) {
 
     var recentTripList,
       subListScopes = [],
@@ -12,7 +12,8 @@
        onTripFocusChange: onTripFocusChange,
        notifyTripFocusChange: notifyTripFocusChange,
        convertAddressToCoordinates: convertAddressToCoordinates,
-       createTripfromParams: createTripfromParams,
+       createOne: createOne,
+       deleteOne: deleteOne,
        data: {
          }
        };
@@ -28,14 +29,30 @@
       return deferred.promise;
     }
 
-    function createTripfromParams(sourceLatLng, destLatLng, range) {
+    function createOne(name, sourceLatLng, destLatLng, range) {
       var deferred = $q.defer();
       $http.post(API_ENDPOINT + '/Trips/populate',{
+        name: name,
         source: sourceLatLng,
         dest: destLatLng,
         range: range
       }).then(function(res){
-        deferred.resolve(res.data);
+        getAll().then(function() {
+          deferred.resolve(true);
+        });
+      },function(err) {
+        deferred.reject(err);
+      });
+      return deferred.promise;
+    }
+
+    function deleteOne(tripId) {
+      var deferred = $q.defer();
+      $http.delete(API_ENDPOINT + '/Trips/' + tripId)
+        .then(function(res){
+        getAll().then(function() {
+          deferred.resolve(true);
+        });
       },function(err) {
         deferred.reject(err);
       });
@@ -43,15 +60,28 @@
     }
 
     function getAll () {
+      delete TripFactory.data.trips;
+      notifyListChange();
       var deferred = $q.defer();
-      $http.get(API_ENDPOINT + '/Trips').then(function(res){
+      $http.get(API_ENDPOINT + '/Trips',{
+        params: {
+          'access_token': LoginService.userData.accessToken,
+          filter: {
+            where: {
+              userId: LoginService.userData.userId
+            }
+          }
+        },
+      }).then(function(res){
         TripFactory.data.trips = JSON.parse(JSON.stringify(res.data));
-          deferred.resolve(res.data);
+        notifyListChange();
+        deferred.resolve(res.data);
       },function(err) {
         deferred.reject(err);
       });
       return deferred.promise;
     }
+
     function notifyListChange() {
       subListScopes.forEach(function (subScope) {
         subScope.$broadcast('TripFactory-listChange', {});

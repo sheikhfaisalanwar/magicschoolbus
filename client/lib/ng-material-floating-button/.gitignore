@@ -1,9 +1,0 @@
-.DS_Store
-node_modules
-bower_components
-.sass-cache/
-.grunt
-build
-ga.html
-.idea/
-npm-debug.log
