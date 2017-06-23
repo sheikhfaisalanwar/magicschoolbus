@@ -30,6 +30,7 @@
     $scope.createTrip = function (tripInput) {
       TripFactory.convertAddressToCoordinates(tripInput.source).then(function (sourceCoords) {
         TripFactory.convertAddressToCoordinates(tripInput.dest).then(function (destCoords) {
+
           TripFactory.createOne(tripInput.name, sourceCoords, destCoords, tripInput.range).then(function () {
             $scope.closeModal();
             TripFactory.getAll();

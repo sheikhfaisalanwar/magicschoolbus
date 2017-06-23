@@ -15,9 +15,9 @@ rtp-criteria-panel div.top-panel {
   height:40%;
   position: absolute;
 }
-
 rtp-criteria-panel div.top-panel > ion-content.list {
   margin-bottom: 20px;
+
 }
 
 rtp-criteria-panel div.top-panel > ion-content.list > div.scroll{
@@ -41,7 +41,6 @@ rtp-criteria-panel ion-scroll {
   background-color: #444;
 }
 
-
 rtp-criteria-panel .trip-delete-icon {
   font-size: 200%;
   position: absolute;
@@ -49,3 +48,4 @@ rtp-criteria-panel .trip-delete-icon {
   top: 16px;
   color: red;
 }
+

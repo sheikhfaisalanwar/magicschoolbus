@@ -7,6 +7,7 @@
     var vm = this;
 
     vm.title = 'Magic School Bus';
+
     vm.googleMapsUrl = 'https://maps.googleapis.com/maps/api/js?key=' + 'AIzaSyB4rABfee6qTa6-4ELeCJ763m4V-DuTlLk';
     vm.map = {
         markers : {},
@@ -31,7 +32,8 @@
     });
     TripFactory.onTripFocusChange($scope, function (event, focusedTrip) {
       vm.map.markers = {};
-      var selectedTrip = TripFactory.data.trips[focusedTrip.index];
+      var selectedTrip = TripFactory.data.trips[focusedTrip.index]; 
+
       vm.map.markers.start = {
         lat: selectedTrip.start.lat,
         lng: selectedTrip.start.lng
